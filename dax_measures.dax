@@ -1,0 +1,130 @@
+// =============================================================================
+// DAX Measure Library: HR Workforce Analytics & Attrition Portfolio
+// Target Environment: Power BI Desktop
+// Architecture: People Analytics Semantic Model (Fact_Employees)
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// SECTION 1: HEADCOUNT & CORE TURNOVER METRICS
+// -----------------------------------------------------------------------------
+
+Total Headcount = 
+COUNTROWS(Fact_Employees)
+
+Departed Employees = 
+CALCULATE(
+    COUNTROWS(Fact_Employees), 
+    Fact_Employees[Attrition] = "Yes"
+)
+
+Active Headcount = 
+CALCULATE(
+    COUNTROWS(Fact_Employees), 
+    Fact_Employees[Attrition] = "No"
+)
+
+Retention Rate % = 
+DIVIDE(
+    [Active Headcount], 
+    [Total Headcount], 
+    0
+)
+
+Attrition Rate % = 
+DIVIDE(
+    [Departed Employees], 
+    [Total Headcount], 
+    0
+)
+
+
+// -----------------------------------------------------------------------------
+// SECTION 2: WORKFORCE EXPERIENCE & COMPENSATION
+// -----------------------------------------------------------------------------
+
+Average Monthly Income = 
+AVERAGE(Fact_Employees[Monthly_Income])
+
+Median Monthly Income = 
+MEDIAN(Fact_Employees[Monthly_Income])
+
+Average Company Tenure (Years) = 
+AVERAGE(Fact_Employees[Years_at_Company])
+
+Average Years in Current Role = 
+AVERAGE(Fact_Employees[Years_in_Current_Role])
+
+Average Years Since Last Promotion = 
+AVERAGE(Fact_Employees[Years_Since_Last_Promotion])
+
+Average Absenteeism Days = 
+AVERAGE(Fact_Employees[Absenteeism])
+
+
+// -----------------------------------------------------------------------------
+// SECTION 3: SATISFACTION & WELL-BEING INDICES
+// -----------------------------------------------------------------------------
+
+Average Job Satisfaction = 
+AVERAGE(Fact_Employees[Job_Satisfaction])
+
+Average Work Life Balance = 
+AVERAGE(Fact_Employees[Work_Life_Balance])
+
+Average Work Environment Satisfaction = 
+AVERAGE(Fact_Employees[Work_Environment_Satisfaction])
+
+Low Satisfaction Headcount = 
+CALCULATE(
+    COUNTROWS(Fact_Employees), 
+    Fact_Employees[Job_Satisfaction] <= 2
+)
+
+
+// -----------------------------------------------------------------------------
+// SECTION 4: FLIGHT RISK & CONDITIONAL ATTRITION BENCHMARKS
+// -----------------------------------------------------------------------------
+
+Overtime Attrition Rate % = 
+CALCULATE(
+    [Attrition Rate %], 
+    Fact_Employees[Overtime] = "Yes"
+)
+
+Non-Overtime Attrition Rate % = 
+CALCULATE(
+    [Attrition Rate %], 
+    Fact_Employees[Overtime] = "No"
+)
+
+High Performer Flight Risk Count = 
+CALCULATE(
+    COUNTROWS(Fact_Employees), 
+    Fact_Employees[Performance_Rating] >= 4,
+    Fact_Employees[Job_Satisfaction] <= 2,
+    Fact_Employees[Attrition] = "No"
+)
+
+Department Attrition Rank = 
+IF(
+    HASONEVALUE(Fact_Employees[Department]),
+    RANKX(
+        ALL(Fact_Employees[Department]), 
+        [Attrition Rate %], 
+        , 
+        DESC, 
+        Dense
+    ),
+    BLANK()
+)
+
+// Dynamic Card Formatting Hex Color
+Attrition Status Color Hex = 
+VAR Rate = [Attrition Rate %]
+RETURN
+SWITCH(
+    TRUE(),
+    Rate <= 0.12, "#2ECC71",  // Healthy Low Turnover (Green)
+    Rate <= 0.18, "#F1C40F",  // Average Threshold (Amber)
+    "#E74C3C"                  // Elevated Risk (Red)
+)
