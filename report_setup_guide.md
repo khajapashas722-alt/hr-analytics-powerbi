@@ -1,8 +1,19 @@
 # Power BI Setup & Assembly Guide: HR Analytics Dashboard
 
-This guide walks through assembling the complete Human Resources & Workforce Attrition dashboard in **Power BI Desktop**.
+This guide walks through opening, assembling, and publishing the Human Resources & Workforce Attrition dashboard in **Power BI Desktop**.
 
 ---
+
+## Fast-Track: Open via Power BI Project (`.pbip`) or Template (`.pbit`)
+
+Both native formats are pre-built and ready in this directory:
+1. **Option A (Modern Power BI Project)**: Double-click `hr-analytics-dashboard.pbip`. Power BI Desktop loads the project, evaluates the Power Query steps against local CSVs, compiles the model into VertiPaq, and opens both report pages.
+2. **Option B (Power BI Template)**: Double-click `hr-analytics-dashboard.pbit`. Power BI Desktop loads the template and evaluates queries.
+3. **Save as `.pbix`**: In Power BI Desktop, click **File** -> **Save As** -> select **Power BI Desktop Document (*.pbix)** -> save as `hr-analytics-dashboard.pbix`.
+
+---
+
+## Manual Step-by-Step Scratch Build Instructions
 
 ## Step 1: Ingest Data via Power Query
 1. Open **Power BI Desktop**.

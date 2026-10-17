@@ -1,0 +1,9 @@
+{
+  "version": "1.0",
+  "datasetReference": {
+    "byPath": {
+      "path": "../hr-analytics-dashboard.SemanticModel"
+    },
+    "byConnection": null
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "id": 0,
+  "resourcePackages": [],
+  "sections": [
+    {
+      "id": 0,
+      "name": "ReportSection_WorkforceOverview",
+      "displayName": "Executive Workforce & Turnover Overview",
+      "filters": "[]",
+      "ordinal": 0,
+      "visualContainers": [
+        {
+          "x": 20,
+          "y": 15,
+          "z": 1000,
+          "width": 1240,
+          "height": 45,
+          "config": "{\"name\": \"HeaderVisual_HR\", \"singleVisual\": {\"visualType\": \"textbox\", \"objects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Workforce Headcount & Attrition Executive Dashboard\", \"textStyle\": {\"fontFamily\": \"Segoe UI\", \"fontSize\": \"18pt\", \"fontWeight\": \"bold\", \"color\": \"#1A365D\"}}]}]}}]}}}"
+        },
+        {
+          "x": 20,
+          "y": 70,
+          "z": 2000,
+          "width": 230,
+          "height": 95,
+          "config": "{\"name\": \"Card_TotalHeadcount\", \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Fields\": [{\"queryRef\": \"_HR_Measures.Total Headcount\"}]}}}"
+        },
+        {
+          "x": 270,
+          "y": 70,
+          "z": 2001,
+          "width": 230,
+          "height": 95,
+          "config": "{\"name\": \"Card_ActiveHeadcount\", \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Fields\": [{\"queryRef\": \"_HR_Measures.Active Headcount\"}]}}}"
+        },
+        {
+          "x": 520,
+          "y": 70,
+          "z": 2002,
+          "width": 230,
+          "height": 95,
+          "config": "{\"name\": \"Card_Departed\", \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Fields\": [{\"queryRef\": \"_HR_Measures.Departed Employees\"}]}}}"
+        },
+        {
+          "x": 770,
+          "y": 70,
+          "z": 2003,
+          "width": 230,
+          "height": 95,
+          "config": "{\"name\": \"Card_AttritionRate\", \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Fields\": [{\"queryRef\": \"_HR_Measures.Attrition Rate %\"}]}}}"
+        },
+        {
+          "x": 1020,
+          "y": 70,
+          "z": 2004,
+          "width": 240,
+          "height": 95,
+          "config": "{\"name\": \"Card_AvgIncome\", \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Fields\": [{\"queryRef\": \"_HR_Measures.Average Monthly Income\"}]}}}"
+        },
+        {
+          "x": 20,
+          "y": 180,
+          "z": 3000,
+          "width": 600,
+          "height": 270,
+          "config": "{\"name\": \"DeptAttritionBarChart\", \"singleVisual\": {\"visualType\": \"clusteredBarChart\", \"projections\": {\"Category\": [{\"queryRef\": \"Fact_Employees.Department\"}], \"Y\": [{\"queryRef\": \"_HR_Measures.Attrition Rate %\"}]}}}"
+        },
+        {
+          "x": 640,
+          "y": 180,
+          "z": 3001,
+          "width": 620,
+          "height": 270,
+          "config": "{\"name\": \"TenureCohortColumnChart\", \"singleVisual\": {\"visualType\": \"clusteredColumnChart\", \"projections\": {\"Category\": [{\"queryRef\": \"Fact_Employees.Tenure Cohort\"}], \"Y\": [{\"queryRef\": \"_HR_Measures.Attrition Rate %\"}]}}}"
+        },
+        {
+          "x": 20,
+          "y": 465,
+          "z": 3002,
+          "width": 450,
+          "height": 235,
+          "config": "{\"name\": \"OvertimeDonutChart\", \"singleVisual\": {\"visualType\": \"pieChart\", \"projections\": {\"Category\": [{\"queryRef\": \"Fact_Employees.Overtime\"}], \"Y\": [{\"queryRef\": \"_HR_Measures.Departed Employees\"}]}}}"
+        },
+        {
+          "x": 490,
+          "y": 465,
+          "z": 3003,
+          "width": 770,
+          "height": 235,
+          "config": "{\"name\": \"DeptSummaryTable\", \"singleVisual\": {\"visualType\": \"tableEx\", \"projections\": {\"Values\": [{\"queryRef\": \"Fact_Employees.Department\"}, {\"queryRef\": \"_HR_Measures.Total Headcount\"}, {\"queryRef\": \"_HR_Measures.Departed Employees\"}, {\"queryRef\": \"_HR_Measures.Attrition Rate %\"}, {\"queryRef\": \"_HR_Measures.Average Monthly Income\"}, {\"queryRef\": \"_HR_Measures.Average Job Satisfaction\"}]}}}"
+        }
+      ],
+      "config": "{}",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "id": 1,
+      "name": "ReportSection_CompensationFlightRisk",
+      "displayName": "Compensation & Flight Risk Deep Dive",
+      "filters": "[]",
+      "ordinal": 1,
+      "visualContainers": [
+        {
+          "x": 20,
+          "y": 15,
+          "z": 1000,
+          "width": 1240,
+          "height": 45,
+          "config": "{\"name\": \"HeaderVisual_HR_P2\", \"singleVisual\": {\"visualType\": \"textbox\", \"objects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Workforce Compensation Benchmarking & Flight Risk Analysis\", \"textStyle\": {\"fontFamily\": \"Segoe UI\", \"fontSize\": \"18pt\", \"fontWeight\": \"bold\", \"color\": \"#1A365D\"}}]}]}}]}}}"
+        },
+        {
+          "x": 20,
+          "y": 70,
+          "z": 2000,
+          "width": 300,
+          "height": 95,
+          "config": "{\"name\": \"Card_FlightRisk\", \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Fields\": [{\"queryRef\": \"_HR_Measures.High Performer Flight Risk Count\"}]}}}"
+        },
+        {
+          "x": 340,
+          "y": 70,
+          "z": 2001,
+          "width": 300,
+          "height": 95,
+          "config": "{\"name\": \"Card_OvertimeAttrition\", \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Fields\": [{\"queryRef\": \"_HR_Measures.Overtime Attrition Rate %\"}]}}}"
+        },
+        {
+          "x": 660,
+          "y": 70,
+          "z": 2002,
+          "width": 300,
+          "height": 95,
+          "config": "{\"name\": \"Card_NonOvertimeAttrition\", \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Fields\": [{\"queryRef\": \"_HR_Measures.Non-Overtime Attrition Rate %\"}]}}}"
+        },
+        {
+          "x": 980,
+          "y": 70,
+          "z": 2003,
+          "width": 280,
+          "height": 95,
+          "config": "{\"name\": \"Card_LowSatCount\", \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Fields\": [{\"queryRef\": \"_HR_Measures.Low Satisfaction Headcount\"}]}}}"
+        },
+        {
+          "x": 20,
+          "y": 180,
+          "z": 3000,
+          "width": 750,
+          "height": 520,
+          "config": "{\"name\": \"RoleAttritionMatrix\", \"singleVisual\": {\"visualType\": \"pivotTable\", \"projections\": {\"Rows\": [{\"queryRef\": \"Fact_Employees.Department\"}, {\"queryRef\": \"Fact_Employees.Job_Role\"}], \"Values\": [{\"queryRef\": \"_HR_Measures.Total Headcount\"}, {\"queryRef\": \"_HR_Measures.Departed Employees\"}, {\"queryRef\": \"_HR_Measures.Attrition Rate %\"}, {\"queryRef\": \"_HR_Measures.Average Monthly Income\"}, {\"queryRef\": \"_HR_Measures.Average Job Satisfaction\"}]}}}"
+        },
+        {
+          "x": 790,
+          "y": 180,
+          "z": 3001,
+          "width": 470,
+          "height": 520,
+          "config": "{\"name\": \"SalaryVsSatisfactionScatter\", \"singleVisual\": {\"visualType\": \"scatterChart\", \"projections\": {\"Category\": [{\"queryRef\": \"Fact_Employees.Job_Role\"}], \"X\": [{\"queryRef\": \"_HR_Measures.Average Monthly Income\"}], \"Y\": [{\"queryRef\": \"_HR_Measures.Average Job Satisfaction\"}], \"Size\": [{\"queryRef\": \"_HR_Measures.Total Headcount\"}]}}}"
+        }
+      ],
+      "config": "{}",
+      "width": 1280,
+      "height": 720
+    }
+  ],
+  "config": "{\"version\": \"5.50\", \"themeCollection\": {\"baseTheme\": {\"name\": \"CY24SU02\", \"version\": \"5.50\"}}}"
+}

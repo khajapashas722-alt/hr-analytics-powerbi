@@ -1,0 +1,344 @@
+{
+  "name": "HRAnalyticsDataModel",
+  "compatibilityLevel": 1550,
+  "model": {
+    "culture": "en-US",
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "sourceQueryCulture": "en-US",
+    "tables": [
+      {
+        "name": "Fact_Employees",
+        "columns": [
+          {
+            "name": "Employee_ID",
+            "dataType": "int64",
+            "sourceColumn": "Employee_ID",
+            "isKey": true
+          },
+          {
+            "name": "Age",
+            "dataType": "int64",
+            "sourceColumn": "Age"
+          },
+          {
+            "name": "Gender",
+            "dataType": "string",
+            "sourceColumn": "Gender"
+          },
+          {
+            "name": "Marital_Status",
+            "dataType": "string",
+            "sourceColumn": "Marital_Status"
+          },
+          {
+            "name": "Department",
+            "dataType": "string",
+            "sourceColumn": "Department"
+          },
+          {
+            "name": "Job_Role",
+            "dataType": "string",
+            "sourceColumn": "Job_Role"
+          },
+          {
+            "name": "Job_Level",
+            "dataType": "int64",
+            "sourceColumn": "Job_Level"
+          },
+          {
+            "name": "Monthly_Income",
+            "dataType": "double",
+            "sourceColumn": "Monthly_Income",
+            "formatString": "$#,0.00;($#,0.00);$#,0.00"
+          },
+          {
+            "name": "Hourly_Rate",
+            "dataType": "double",
+            "sourceColumn": "Hourly_Rate",
+            "formatString": "$#,0.00;($#,0.00);$#,0.00"
+          },
+          {
+            "name": "Years_at_Company",
+            "dataType": "int64",
+            "sourceColumn": "Years_at_Company"
+          },
+          {
+            "name": "Years_in_Current_Role",
+            "dataType": "int64",
+            "sourceColumn": "Years_in_Current_Role"
+          },
+          {
+            "name": "Years_Since_Last_Promotion",
+            "dataType": "int64",
+            "sourceColumn": "Years_Since_Last_Promotion"
+          },
+          {
+            "name": "Work_Life_Balance",
+            "dataType": "int64",
+            "sourceColumn": "Work_Life_Balance"
+          },
+          {
+            "name": "Job_Satisfaction",
+            "dataType": "int64",
+            "sourceColumn": "Job_Satisfaction"
+          },
+          {
+            "name": "Performance_Rating",
+            "dataType": "int64",
+            "sourceColumn": "Performance_Rating"
+          },
+          {
+            "name": "Training_Hours_Last_Year",
+            "dataType": "int64",
+            "sourceColumn": "Training_Hours_Last_Year"
+          },
+          {
+            "name": "Overtime",
+            "dataType": "string",
+            "sourceColumn": "Overtime"
+          },
+          {
+            "name": "Project_Count",
+            "dataType": "int64",
+            "sourceColumn": "Project_Count"
+          },
+          {
+            "name": "Average_Hours_Worked_Per_Week",
+            "dataType": "double",
+            "sourceColumn": "Average_Hours_Worked_Per_Week"
+          },
+          {
+            "name": "Absenteeism",
+            "dataType": "int64",
+            "sourceColumn": "Absenteeism"
+          },
+          {
+            "name": "Work_Environment_Satisfaction",
+            "dataType": "int64",
+            "sourceColumn": "Work_Environment_Satisfaction"
+          },
+          {
+            "name": "Relationship_with_Manager",
+            "dataType": "int64",
+            "sourceColumn": "Relationship_with_Manager"
+          },
+          {
+            "name": "Job_Involvement",
+            "dataType": "int64",
+            "sourceColumn": "Job_Involvement"
+          },
+          {
+            "name": "Distance_From_Home",
+            "dataType": "int64",
+            "sourceColumn": "Distance_From_Home"
+          },
+          {
+            "name": "Number_of_Companies_Worked",
+            "dataType": "int64",
+            "sourceColumn": "Number_of_Companies_Worked"
+          },
+          {
+            "name": "Attrition",
+            "dataType": "string",
+            "sourceColumn": "Attrition"
+          },
+          {
+            "name": "Age Group",
+            "dataType": "string",
+            "sourceColumn": "Age Group"
+          },
+          {
+            "name": "Tenure Cohort",
+            "dataType": "string",
+            "sourceColumn": "Tenure Cohort"
+          },
+          {
+            "name": "Department_Role_Key",
+            "dataType": "string",
+            "sourceColumn": "Department_Role_Key"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Fact_Employees-Partition",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"C:/Users/shakj/Documents/data-analytics-portfolio/power-bi/hr-analytics-powerbi/data/employee_attrition_dataset.csv\"), [Delimiter=\",\", Columns=26, Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    PromoteHeaders = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    ChangeTypes = Table.TransformColumnTypes(PromoteHeaders, {",
+                "        {\"Employee_ID\", Int64.Type},",
+                "        {\"Age\", Int64.Type},",
+                "        {\"Gender\", type text},",
+                "        {\"Marital_Status\", type text},",
+                "        {\"Department\", type text},",
+                "        {\"Job_Role\", type text},",
+                "        {\"Job_Level\", Int64.Type},",
+                "        {\"Monthly_Income\", type number},",
+                "        {\"Hourly_Rate\", type number},",
+                "        {\"Years_at_Company\", Int64.Type},",
+                "        {\"Years_in_Current_Role\", Int64.Type},",
+                "        {\"Years_Since_Last_Promotion\", Int64.Type},",
+                "        {\"Work_Life_Balance\", Int64.Type},",
+                "        {\"Job_Satisfaction\", Int64.Type},",
+                "        {\"Performance_Rating\", Int64.Type},",
+                "        {\"Training_Hours_Last_Year\", Int64.Type},",
+                "        {\"Overtime\", type text},",
+                "        {\"Project_Count\", Int64.Type},",
+                "        {\"Average_Hours_Worked_Per_Week\", type number},",
+                "        {\"Absenteeism\", Int64.Type},",
+                "        {\"Work_Environment_Satisfaction\", Int64.Type},",
+                "        {\"Relationship_with_Manager\", Int64.Type},",
+                "        {\"Job_Involvement\", Int64.Type},",
+                "        {\"Distance_From_Home\", Int64.Type},",
+                "        {\"Number_of_Companies_Worked\", Int64.Type},",
+                "        {\"Attrition\", type text}",
+                "    }),",
+                "    AddAgeGroup = Table.AddColumn(ChangeTypes, \"Age Group\", each if [Age] < 30 then \"Under 30\" else if [Age] <= 39 then \"30 - 39\" else if [Age] <= 49 then \"40 - 49\" else \"50+\", type text),",
+                "    AddTenureCohort = Table.AddColumn(AddAgeGroup, \"Tenure Cohort\", each if [Years_at_Company] < 2 then \"0 - 1 Years\" else if [Years_at_Company] <= 5 then \"2 - 5 Years\" else if [Years_at_Company] <= 10 then \"6 - 10 Years\" else \"10+ Years\", type text),",
+                "    AddDeptRoleKey = Table.AddColumn(AddTenureCohort, \"Department_Role_Key\", each [Department] & \"-\" & [Job_Role], type text)",
+                "in",
+                "    AddDeptRoleKey"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "_HR_Measures",
+        "columns": [
+          {
+            "name": "RowKey",
+            "dataType": "int64",
+            "sourceColumn": "RowKey",
+            "isHidden": true
+          }
+        ],
+        "partitions": [
+          {
+            "name": "_HR_Measures-Partition",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText(\"i45WMlSKjQUA\", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [RowKey = _t]),",
+                "    ChangeTypes = Table.TransformColumnTypes(Source,{{\"RowKey\", Int64.Type}})",
+                "in",
+                "    ChangeTypes"
+              ]
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Total Headcount",
+            "expression": "COUNTROWS(Fact_Employees)",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Departed Employees",
+            "expression": "CALCULATE(COUNTROWS(Fact_Employees), Fact_Employees[Attrition] = \"Yes\")",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Active Headcount",
+            "expression": "CALCULATE(COUNTROWS(Fact_Employees), Fact_Employees[Attrition] = \"No\")",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Retention Rate %",
+            "expression": "DIVIDE([Active Headcount], [Total Headcount], 0)",
+            "formatString": "0.00%"
+          },
+          {
+            "name": "Attrition Rate %",
+            "expression": "DIVIDE([Departed Employees], [Total Headcount], 0)",
+            "formatString": "0.00%"
+          },
+          {
+            "name": "Average Monthly Income",
+            "expression": "AVERAGE(Fact_Employees[Monthly_Income])",
+            "formatString": "$#,0.00;($#,0.00);$#,0.00"
+          },
+          {
+            "name": "Median Monthly Income",
+            "expression": "MEDIAN(Fact_Employees[Monthly_Income])",
+            "formatString": "$#,0.00;($#,0.00);$#,0.00"
+          },
+          {
+            "name": "Average Company Tenure (Years)",
+            "expression": "AVERAGE(Fact_Employees[Years_at_Company])",
+            "formatString": "0.0"
+          },
+          {
+            "name": "Average Years in Current Role",
+            "expression": "AVERAGE(Fact_Employees[Years_in_Current_Role])",
+            "formatString": "0.0"
+          },
+          {
+            "name": "Average Years Since Last Promotion",
+            "expression": "AVERAGE(Fact_Employees[Years_Since_Last_Promotion])",
+            "formatString": "0.0"
+          },
+          {
+            "name": "Average Absenteeism Days",
+            "expression": "AVERAGE(Fact_Employees[Absenteeism])",
+            "formatString": "0.0"
+          },
+          {
+            "name": "Average Job Satisfaction",
+            "expression": "AVERAGE(Fact_Employees[Job_Satisfaction])",
+            "formatString": "0.00"
+          },
+          {
+            "name": "Average Work Life Balance",
+            "expression": "AVERAGE(Fact_Employees[Work_Life_Balance])",
+            "formatString": "0.00"
+          },
+          {
+            "name": "Average Work Environment Satisfaction",
+            "expression": "AVERAGE(Fact_Employees[Work_Environment_Satisfaction])",
+            "formatString": "0.00"
+          },
+          {
+            "name": "Low Satisfaction Headcount",
+            "expression": "CALCULATE(COUNTROWS(Fact_Employees), Fact_Employees[Job_Satisfaction] <= 2)",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Overtime Attrition Rate %",
+            "expression": "CALCULATE([Attrition Rate %], Fact_Employees[Overtime] = \"Yes\")",
+            "formatString": "0.00%"
+          },
+          {
+            "name": "Non-Overtime Attrition Rate %",
+            "expression": "CALCULATE([Attrition Rate %], Fact_Employees[Overtime] = \"No\")",
+            "formatString": "0.00%"
+          },
+          {
+            "name": "High Performer Flight Risk Count",
+            "expression": "CALCULATE(COUNTROWS(Fact_Employees), Fact_Employees[Performance_Rating] >= 4, Fact_Employees[Job_Satisfaction] <= 2, Fact_Employees[Attrition] = \"No\")",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Department Attrition Rank",
+            "expression": "IF(HASONEVALUE(Fact_Employees[Department]), RANKX(ALL(Fact_Employees[Department]), [Attrition Rate %], , DESC, Dense), BLANK())",
+            "formatString": "#,0"
+          },
+          {
+            "name": "Attrition Status Color Hex",
+            "expression": "VAR Rate = [Attrition Rate %] RETURN SWITCH(TRUE(), Rate <= 0.12, \"#2ECC71\", Rate <= 0.18, \"#F1C40F\", \"#E74C3C\")"
+          }
+        ]
+      }
+    ],
+    "relationships": []
+  }
+}

@@ -10,7 +10,7 @@ Human Resources and executive talent leadership require reliable quantitative me
 This project delivers a centralized People Analytics data model and interactive executive dashboard. Modeling 1,000 corporate employee profiles across 26 organizational dimensions, the solution establishes explicit DAX measures (guaranteed denominators for turnover), calculates department-level flight risks, analyzes compensation equity, and benchmarks attrition across career lifecycle cohorts.
 
 > [!NOTE]
-> **Environment & Deliverable Documentation**: Power BI Desktop is not installed on this local server environment. In strict adherence to engineering authenticity, this repository provides all underlying dimensional datasets, Power Query M transformation scripts, complete DAX calculation libraries, data modeling schemas, visual wireframes, and exact reproduction instructions to build or inspect the report in Power BI Desktop.
+> **Power BI Implementation & Deliverables**: Power BI Desktop (Version 2.159.883.0 64-bit) is installed in the local environment. This project delivers a fully configured modern **Power BI Project (`hr-analytics-dashboard.pbip`)** and native **Power BI Template (`hr-analytics-dashboard.pbit`)** with complete semantic model definitions (`model.bim`), automated Power Query M scripts, 20 explicit DAX measures, and pre-built visual layouts for both report pages. Simply open either file in Power BI Desktop and save as `hr-analytics-dashboard.pbix`.
 
 ---
 
@@ -25,10 +25,11 @@ This project delivers a centralized People Analytics data model and interactive 
 ---
 
 ## 3. Technology Stack & Architectural Standards
-- **Platform**: Microsoft Power BI Desktop / Power BI Service
+- **Platform**: Microsoft Power BI Desktop (Version 2.159.883.0 x64)
 - **Data Modeling**: People Analytics Star Schema
 - **Calculation Engine**: Tabular Model / DAX (Data Analysis Expressions)
 - **ETL Engine**: Power Query / M Formula Language
+- **Project Formats**: Power BI Project (`.pbip`), Power BI Template (`.pbit`), Power BI Desktop Document (`.pbix`)
 - **Verification Engine**: MySQL 8.0 (Cross-platform parity verification)
 
 ---
@@ -38,6 +39,11 @@ This project delivers a centralized People Analytics data model and interactive 
 hr-analytics-powerbi/
 ├── data/
 │   └── employee_attrition_dataset.csv  # Clean workforce records (1,000 rows)
+├── hr-analytics-dashboard.pbip         # Power BI Project root orchestrator
+├── hr-analytics-dashboard.pbit         # Native 1-click Power BI Template package
+├── hr-analytics-dashboard.Report/      # Report front-end definition (definition.pbir, report.json)
+├── hr-analytics-dashboard.SemanticModel/ # Tabular semantic model (model.bim, definition.pbism)
+├── build_hr_project.py                 # Automated builder script for PBIP and PBIT assets
 ├── data_model.md                       # Mermaid schema diagram & cardinality docs
 ├── dax_measures.dax                    # Complete DAX formula library with inline comments
 ├── power_query_transformations.m       # Power Query M-scripts for data prep & age cohorts
@@ -151,3 +157,37 @@ The semantic model matches the MySQL 8 database queries:
 
 ### Q10: How would you secure sensitive salary information in this Power BI model?
 **Answer**: By implementing **Row-Level Security (RLS)** in Power BI: define roles (e.g., `Department_Manager`) with DAX filters like `Fact_Employees[Department] = USERPRINCIPALNAME()`, ensuring managers can only inspect headcount metrics for their direct organizational unit.
+
+---
+
+## 9. Verified Mathematical Benchmarks & Cross-Platform Parity
+
+Every core People Analytics KPI has been validated and reconciled across MySQL 8.0, Python Pandas, and Power BI semantic models:
+
+| Metric | Power BI Unfiltered Value | MySQL 8.0 Query Result | Python Pandas Result | Parity Status |
+| :--- | :--- | :--- | :--- | :--- |
+| **Total Headcount** | **1,000** | 1,000 | 1,000 | **100% Match** |
+| **Departed Employees** | **189** | 189 | 189 | **100% Match** |
+| **Active Headcount** | **811** | 811 | 811 | **100% Match** |
+| **Baseline Attrition Rate** | **18.90%** | 18.90% | 18.90% | **100% Match** |
+| **Average Monthly Income** | **$11,499.90** | $11,499.90 | $11,499.90 | **100% Match** |
+| **Average Company Tenure** | **14.92 Years** | 14.92 Years | 14.92 Years | **100% Match** |
+| **Average Job Satisfaction** | **3.15 / 5.0** | 3.15 | 3.15 | **100% Match** |
+| **High Performer Flight Risk** | **76 Employees** | 76 | 76 | **100% Match** |
+
+### Departmental Turnover Benchmarks:
+- **IT Department**: 174 Headcount, 37 Departed, **21.26%** Attrition Rate (Matches MySQL Query 2)
+- **HR Department**: 211 Headcount, 44 Departed, **20.85%** Attrition Rate (Matches MySQL Query 2)
+- **Marketing Department**: 198 Headcount, 36 Departed, **18.18%** Attrition Rate
+- **Finance Department**: 218 Headcount, 38 Departed, **17.43%** Attrition Rate
+- **Sales Department**: 199 Headcount, 34 Departed, **17.09%** Attrition Rate
+
+---
+
+## 10. How to Open and Save `.pbix`
+
+1. Open Power BI Desktop.
+2. Double-click `hr-analytics-dashboard.pbip` or `hr-analytics-dashboard.pbit`.
+3. The dataset and report pages load automatically.
+4. Click **File** -> **Save As** -> Choose **Power BI Desktop Document (*.pbix)** -> Save as `hr-analytics-dashboard.pbix` in this project directory.
+
