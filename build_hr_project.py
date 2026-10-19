@@ -423,6 +423,7 @@ def main():
     os.makedirs(rep_dir, exist_ok=True)
     
     pbip_content = {
+        "$schema": "https://developer.microsoft.com/json-schemas/fabric/pbip/pbipProperties/1.0.0/schema.json",
         "version": "1.0",
         "artifacts": [
             {
@@ -432,19 +433,19 @@ def main():
             }
         ],
         "settings": {
-            "enableAutoAuth": True
+            "enableAutoRecovery": True
         }
     }
     with open(pbip_file, "w", encoding="utf-8") as f:
         json.dump(pbip_content, f, indent=2)
         
     pbir_content = {
+        "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definitionProperties/1.0.0/schema.json",
         "version": "1.0",
         "datasetReference": {
             "byPath": {
                 "path": "../hr-analytics-dashboard.SemanticModel"
-            },
-            "byConnection": None
+            }
         }
     }
     with open(os.path.join(rep_dir, "definition.pbir"), "w", encoding="utf-8") as f:
@@ -453,8 +454,12 @@ def main():
     with open(os.path.join(rep_dir, "report.json"), "w", encoding="utf-8") as f:
         json.dump(layout, f, indent=2)
         
+    pbism_content = {
+        "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/semanticModel/definitionProperties/1.0.0/schema.json",
+        "version": "1.0"
+    }
     with open(os.path.join(sem_dir, "definition.pbism"), "w", encoding="utf-8") as f:
-        json.dump({"version": "1.0"}, f, indent=2)
+        json.dump(pbism_content, f, indent=2)
         
     with open(os.path.join(sem_dir, "model.bim"), "w", encoding="utf-8") as f:
         json.dump(model, f, indent=2)
