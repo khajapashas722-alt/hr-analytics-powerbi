@@ -151,7 +151,585 @@ def generate_hr_model():
     }
     return model
 
+# ==============================================================================
+# Visual Builder Helper Functions with Complete PrototypeQuery & Projections
+# ==============================================================================
+
+def make_textbox(name, x, y, width, height, z, text, font_size="15pt"):
+    config = {
+        "name": name,
+        "layouts": [{"id": 0, "position": {"x": x, "y": y, "z": z, "width": width, "height": height}}],
+        "singleVisual": {
+            "visualType": "textbox",
+            "objects": {
+                "general": [{
+                    "properties": {
+                        "paragraphs": [{
+                            "textRuns": [{
+                                "value": text,
+                                "textStyle": {"fontFamily": "Segoe UI", "fontSize": font_size, "fontWeight": "bold", "color": "#1A365D"}
+                            }]
+                        }]
+                    }
+                }]
+            }
+        }
+    }
+    return {"x": x, "y": y, "z": z, "width": width, "height": height, "config": json.dumps(config), "filters": "[]"}
+
+def make_card(name, x, y, width, height, z, table_name, measure_name):
+    q_ref = f"{table_name}.{measure_name}"
+    alias = "m"
+    config = {
+        "name": name,
+        "layouts": [{"id": 0, "position": {"x": x, "y": y, "z": z, "width": width, "height": height}}],
+        "singleVisual": {
+            "visualType": "card",
+            "projections": {
+                "Values": [{"queryRef": q_ref}]
+            },
+            "prototypeQuery": {
+                "Version": 2,
+                "From": [{"Name": alias, "Entity": table_name, "Type": 0}],
+                "Select": [{
+                    "Measure": {
+                        "Expression": {"SourceRef": {"Source": alias}},
+                        "Property": measure_name
+                    },
+                    "Name": q_ref
+                }]
+            },
+            "objects": {
+                "labels": [{
+                    "properties": {
+                        "fontSize": {"expr": {"Literal": {"Value": "20D"}}},
+                        "color": {"solid": {"color": {"expr": {"Literal": {"Value": "'#1A365D'"}}}}}
+                    }
+                }],
+                "categoryLabels": [{
+                    "properties": {
+                        "show": {"expr": {"Literal": {"Value": "true"}}},
+                        "fontSize": {"expr": {"Literal": {"Value": "10D"}}},
+                        "color": {"solid": {"color": {"expr": {"Literal": {"Value": "'#64748B'"}}}}}
+                    }
+                }]
+            }
+        }
+    }
+    return {"x": x, "y": y, "z": z, "width": width, "height": height, "config": json.dumps(config), "filters": "[]"}
+
+def make_slicer(name, x, y, width, height, z, table_name, col_name, title_text=None):
+    q_ref = f"{table_name}.{col_name}"
+    alias = "s"
+    objects = {
+        "data": [{
+            "properties": {
+                "mode": {"expr": {"Literal": {"Value": "'Dropdown'"}}}
+            }
+        }],
+        "header": [{
+            "properties": {
+                "show": {"expr": {"Literal": {"Value": "true"}}},
+                "fontSize": {"expr": {"Literal": {"Value": "10D"}}}
+            }
+        }],
+        "items": [{
+            "properties": {
+                "fontSize": {"expr": {"Literal": {"Value": "10D"}}}
+            }
+        }]
+    }
+    if title_text:
+        objects["header"][0]["properties"]["titleText"] = {"expr": {"Literal": {"Value": f"'{title_text}'"}}}
+    config = {
+        "name": name,
+        "layouts": [{"id": 0, "position": {"x": x, "y": y, "z": z, "width": width, "height": height}}],
+        "singleVisual": {
+            "visualType": "slicer",
+            "projections": {
+                "Values": [{"queryRef": q_ref}]
+            },
+            "prototypeQuery": {
+                "Version": 2,
+                "From": [{"Name": alias, "Entity": table_name, "Type": 0}],
+                "Select": [{
+                    "Column": {
+                        "Expression": {"SourceRef": {"Source": alias}},
+                        "Property": col_name
+                    },
+                    "Name": q_ref
+                }]
+            },
+            "objects": objects
+        }
+    }
+    return {"x": x, "y": y, "z": z, "width": width, "height": height, "config": json.dumps(config), "filters": "[]"}
+
+def make_bar_chart(name, x, y, width, height, z, cat_table, cat_col, measure_table, measures, title_text="Attrition Rate % by Department"):
+    cat_ref = f"{cat_table}.{cat_col}"
+    projections = {
+        "Category": [{"queryRef": cat_ref, "active": True}],
+        "Y": [{"queryRef": f"{measure_table}.{m}"} for m in measures]
+    }
+    select_items = [{
+        "Column": {
+            "Expression": {"SourceRef": {"Source": "c"}},
+            "Property": cat_col
+        },
+        "Name": cat_ref
+    }]
+    for m in measures:
+        select_items.append({
+            "Measure": {
+                "Expression": {"SourceRef": {"Source": "m"}},
+                "Property": m
+            },
+            "Name": f"{measure_table}.{m}"
+        })
+    config = {
+        "name": name,
+        "layouts": [{"id": 0, "position": {"x": x, "y": y, "z": z, "width": width, "height": height}}],
+        "singleVisual": {
+            "visualType": "clusteredBarChart",
+            "projections": projections,
+            "prototypeQuery": {
+                "Version": 2,
+                "From": [
+                    {"Name": "c", "Entity": cat_table, "Type": 0},
+                    {"Name": "m", "Entity": measure_table, "Type": 0}
+                ],
+                "Select": select_items
+            },
+            "objects": {
+                "title": [{
+                    "properties": {
+                        "show": {"expr": {"Literal": {"Value": "true"}}},
+                        "text": {"expr": {"Literal": {"Value": f"'{title_text}'"}}},
+                        "fontSize": {"expr": {"Literal": {"Value": "12D"}}},
+                        "fontColor": {"solid": {"color": {"expr": {"Literal": {"Value": "'#1A365D'"}}}}}
+                    }
+                }],
+                "categoryAxis": [{
+                    "properties": {
+                        "show": {"expr": {"Literal": {"Value": "true"}}},
+                        "showAxisTitle": {"expr": {"Literal": {"Value": "true"}}},
+                        "fontSize": {"expr": {"Literal": {"Value": "9D"}}}
+                    }
+                }],
+                "valueAxis": [{
+                    "properties": {
+                        "show": {"expr": {"Literal": {"Value": "true"}}},
+                        "showAxisTitle": {"expr": {"Literal": {"Value": "true"}}}
+                    }
+                }]
+            }
+        }
+    }
+    return {"x": x, "y": y, "z": z, "width": width, "height": height, "config": json.dumps(config), "filters": "[]"}
+
+def make_column_chart(name, x, y, width, height, z, cat_table, cat_col, measure_table, measures, title_text="Attrition Rate % by Tenure Cohort"):
+    cat_ref = f"{cat_table}.{cat_col}"
+    projections = {
+        "Category": [{"queryRef": cat_ref, "active": True}],
+        "Y": [{"queryRef": f"{measure_table}.{m}"} for m in measures]
+    }
+    select_items = [{
+        "Column": {
+            "Expression": {"SourceRef": {"Source": "c"}},
+            "Property": cat_col
+        },
+        "Name": cat_ref
+    }]
+    for m in measures:
+        select_items.append({
+            "Measure": {
+                "Expression": {"SourceRef": {"Source": "m"}},
+                "Property": m
+            },
+            "Name": f"{measure_table}.{m}"
+        })
+    config = {
+        "name": name,
+        "layouts": [{"id": 0, "position": {"x": x, "y": y, "z": z, "width": width, "height": height}}],
+        "singleVisual": {
+            "visualType": "clusteredColumnChart",
+            "projections": projections,
+            "prototypeQuery": {
+                "Version": 2,
+                "From": [
+                    {"Name": "c", "Entity": cat_table, "Type": 0},
+                    {"Name": "m", "Entity": measure_table, "Type": 0}
+                ],
+                "Select": select_items
+            },
+            "objects": {
+                "title": [{
+                    "properties": {
+                        "show": {"expr": {"Literal": {"Value": "true"}}},
+                        "text": {"expr": {"Literal": {"Value": f"'{title_text}'"}}},
+                        "fontSize": {"expr": {"Literal": {"Value": "12D"}}},
+                        "fontColor": {"solid": {"color": {"expr": {"Literal": {"Value": "'#1A365D'"}}}}}
+                    }
+                }],
+                "categoryAxis": [{
+                    "properties": {
+                        "show": {"expr": {"Literal": {"Value": "true"}}},
+                        "showAxisTitle": {"expr": {"Literal": {"Value": "true"}}},
+                        "fontSize": {"expr": {"Literal": {"Value": "9D"}}}
+                    }
+                }],
+                "valueAxis": [{
+                    "properties": {
+                        "show": {"expr": {"Literal": {"Value": "true"}}},
+                        "showAxisTitle": {"expr": {"Literal": {"Value": "true"}}}
+                    }
+                }]
+            }
+        }
+    }
+    return {"x": x, "y": y, "z": z, "width": width, "height": height, "config": json.dumps(config), "filters": "[]"}
+
+def make_donut_chart(name, x, y, width, height, z, cat_table, cat_col, measure_table, measure_name, title_text="Departed Employees by Overtime Requirement"):
+    cat_ref = f"{cat_table}.{cat_col}"
+    m_ref = f"{measure_table}.{measure_name}"
+    config = {
+        "name": name,
+        "layouts": [{"id": 0, "position": {"x": x, "y": y, "z": z, "width": width, "height": height}}],
+        "singleVisual": {
+            "visualType": "pieChart",
+            "projections": {
+                "Category": [{"queryRef": cat_ref}],
+                "Y": [{"queryRef": m_ref}]
+            },
+            "prototypeQuery": {
+                "Version": 2,
+                "From": [
+                    {"Name": "c", "Entity": cat_table, "Type": 0},
+                    {"Name": "m", "Entity": measure_table, "Type": 0}
+                ],
+                "Select": [
+                    {
+                        "Column": {
+                            "Expression": {"SourceRef": {"Source": "c"}},
+                            "Property": cat_col
+                        },
+                        "Name": cat_ref
+                    },
+                    {
+                        "Measure": {
+                            "Expression": {"SourceRef": {"Source": "m"}},
+                            "Property": measure_name
+                        },
+                        "Name": m_ref
+                    }
+                ]
+            },
+            "objects": {
+                "title": [{
+                    "properties": {
+                        "show": {"expr": {"Literal": {"Value": "true"}}},
+                        "text": {"expr": {"Literal": {"Value": f"'{title_text}'"}}},
+                        "fontSize": {"expr": {"Literal": {"Value": "12D"}}},
+                        "fontColor": {"solid": {"color": {"expr": {"Literal": {"Value": "'#1A365D'"}}}}}
+                    }
+                }],
+                "legend": [{
+                    "properties": {
+                        "show": {"expr": {"Literal": {"Value": "true"}}},
+                        "position": {"expr": {"Literal": {"Value": "'Right'"}}}
+                    }
+                }]
+            }
+        }
+    }
+    return {"x": x, "y": y, "z": z, "width": width, "height": height, "config": json.dumps(config), "filters": "[]"}
+
+def make_table(name, x, y, width, height, z, from_tables, fields, title_text=None):
+    from_map = {tbl: f"t{i}" for i, tbl in enumerate(from_tables)}
+    from_list = [{"Name": alias, "Entity": tbl, "Type": 0} for tbl, alias in from_map.items()]
+    projections = {
+        "Values": [{"queryRef": f"{tbl}.{prop}"} for tbl, prop, is_m in fields]
+    }
+    select_items = []
+    for tbl, prop, is_m in fields:
+        alias = from_map[tbl]
+        q_ref = f"{tbl}.{prop}"
+        if is_m:
+            select_items.append({
+                "Measure": {
+                    "Expression": {"SourceRef": {"Source": alias}},
+                    "Property": prop
+                },
+                "Name": q_ref
+            })
+        else:
+            select_items.append({
+                "Column": {
+                    "Expression": {"SourceRef": {"Source": alias}},
+                    "Property": prop
+                },
+                "Name": q_ref
+            })
+    objects = {
+        "stylePreset": [{
+            "properties": {
+                "name": {"expr": {"Literal": {"Value": "'Condensed'"}}}
+            }
+        }],
+        "values": [{
+            "properties": {
+                "fontSize": {"expr": {"Literal": {"Value": "9D"}}},
+                "wordWrap": {"expr": {"Literal": {"Value": "true"}}}
+            }
+        }],
+        "columnHeaders": [{
+            "properties": {
+                "fontSize": {"expr": {"Literal": {"Value": "9D"}}},
+                "wordWrap": {"expr": {"Literal": {"Value": "true"}}},
+                "autoSizeColumnWidth": {"expr": {"Literal": {"Value": "true"}}}
+            }
+        }]
+    }
+    if title_text:
+        objects["title"] = [{
+            "properties": {
+                "show": {"expr": {"Literal": {"Value": "true"}}},
+                "text": {"expr": {"Literal": {"Value": f"'{title_text}'"}}},
+                "fontSize": {"expr": {"Literal": {"Value": "11D"}}},
+                "fontColor": {"solid": {"color": {"expr": {"Literal": {"Value": "'#1A365D'"}}}}}
+            }
+        }]
+    config = {
+        "name": name,
+        "layouts": [{"id": 0, "position": {"x": x, "y": y, "z": z, "width": width, "height": height}}],
+        "singleVisual": {
+            "visualType": "tableEx",
+            "projections": projections,
+            "prototypeQuery": {
+                "Version": 2,
+                "From": from_list,
+                "Select": select_items
+            },
+            "objects": objects
+        }
+    }
+    return {"x": x, "y": y, "z": z, "width": width, "height": height, "config": json.dumps(config), "filters": "[]"}
+
+def make_matrix(name, x, y, width, height, z, row_fields, value_measures, title_text="Department & Job Role Attrition Matrix"):
+    projections = {
+        "Rows": [{"queryRef": f"{tbl}.{prop}"} for tbl, prop in row_fields],
+        "Values": [{"queryRef": f"_HR_Measures.{m}"} for m in value_measures]
+    }
+    from_list = [
+        {"Name": "e", "Entity": "Fact_Employees", "Type": 0},
+        {"Name": "m", "Entity": "_HR_Measures", "Type": 0}
+    ]
+    select_items = []
+    for tbl, prop in row_fields:
+        select_items.append({
+            "Column": {
+                "Expression": {"SourceRef": {"Source": "e"}},
+                "Property": prop
+            },
+            "Name": f"{tbl}.{prop}"
+        })
+    for m in value_measures:
+        select_items.append({
+            "Measure": {
+                "Expression": {"SourceRef": {"Source": "m"}},
+                "Property": m
+            },
+            "Name": f"_HR_Measures.{m}"
+        })
+    config = {
+        "name": name,
+        "layouts": [{"id": 0, "position": {"x": x, "y": y, "z": z, "width": width, "height": height}}],
+        "singleVisual": {
+            "visualType": "pivotTable",
+            "projections": projections,
+            "prototypeQuery": {
+                "Version": 2,
+                "From": from_list,
+                "Select": select_items
+            },
+            "objects": {
+                "title": [{
+                    "properties": {
+                        "show": {"expr": {"Literal": {"Value": "true"}}},
+                        "text": {"expr": {"Literal": {"Value": f"'{title_text}'"}}},
+                        "fontSize": {"expr": {"Literal": {"Value": "12D"}}},
+                        "fontColor": {"solid": {"color": {"expr": {"Literal": {"Value": "'#1A365D'"}}}}}
+                    }
+                }],
+                "rowHeaders": [{
+                    "properties": {
+                        "stepped": {"expr": {"Literal": {"Value": "false"}}},
+                        "showExpandCollapseButtons": {"expr": {"Literal": {"Value": "true"}}}
+                    }
+                }],
+                "subTotals": [{
+                    "properties": {
+                        "rowSubtotals": {"expr": {"Literal": {"Value": "true"}}},
+                        "perRowLevel": {"expr": {"Literal": {"Value": "true"}}},
+                        "grandTotal": {"expr": {"Literal": {"Value": "true"}}}
+                    }
+                }]
+            }
+        }
+    }
+    return {"x": x, "y": y, "z": z, "width": width, "height": height, "config": json.dumps(config), "filters": "[]"}
+
+def make_scatter(name, x, y, width, height, z, cat_table, cat_col, x_measure, y_measure, size_measure, title_text="Income vs. Job Satisfaction by Job Role"):
+    projections = {
+        "Category": [{"queryRef": f"{cat_table}.{cat_col}"}],
+        "X": [{"queryRef": f"_HR_Measures.{x_measure}"}],
+        "Y": [{"queryRef": f"_HR_Measures.{y_measure}"}],
+        "Size": [{"queryRef": f"_HR_Measures.{size_measure}"}]
+    }
+    from_list = [
+        {"Name": "e", "Entity": cat_table, "Type": 0},
+        {"Name": "m", "Entity": "_HR_Measures", "Type": 0}
+    ]
+    select_items = [
+        {
+            "Column": {
+                "Expression": {"SourceRef": {"Source": "e"}},
+                "Property": cat_col
+            },
+            "Name": f"{cat_table}.{cat_col}"
+        },
+        {
+            "Measure": {
+                "Expression": {"SourceRef": {"Source": "m"}},
+                "Property": x_measure
+            },
+            "Name": f"_HR_Measures.{x_measure}"
+        },
+        {
+            "Measure": {
+                "Expression": {"SourceRef": {"Source": "m"}},
+                "Property": y_measure
+            },
+            "Name": f"_HR_Measures.{y_measure}"
+        },
+        {
+            "Measure": {
+                "Expression": {"SourceRef": {"Source": "m"}},
+                "Property": size_measure
+            },
+            "Name": f"_HR_Measures.{size_measure}"
+        }
+    ]
+    config = {
+        "name": name,
+        "layouts": [{"id": 0, "position": {"x": x, "y": y, "z": z, "width": width, "height": height}}],
+        "singleVisual": {
+            "visualType": "scatterChart",
+            "projections": projections,
+            "prototypeQuery": {
+                "Version": 2,
+                "From": from_list,
+                "Select": select_items
+            },
+            "objects": {
+                "title": [{
+                    "properties": {
+                        "show": {"expr": {"Literal": {"Value": "true"}}},
+                        "text": {"expr": {"Literal": {"Value": f"'{title_text}'"}}},
+                        "fontSize": {"expr": {"Literal": {"Value": "12D"}}},
+                        "fontColor": {"solid": {"color": {"expr": {"Literal": {"Value": "'#1A365D'"}}}}}
+                    }
+                }],
+                "categoryAxis": [{
+                    "properties": {
+                        "showAxisTitle": {"expr": {"Literal": {"Value": "true"}}},
+                        "axisTitle": {"expr": {"Literal": {"Value": f"'{x_measure}'"}}}
+                    }
+                }],
+                "valueAxis": [{
+                    "properties": {
+                        "showAxisTitle": {"expr": {"Literal": {"Value": "true"}}},
+                        "axisTitle": {"expr": {"Literal": {"Value": f"'{y_measure}'"}}}
+                    }
+                }]
+            }
+        }
+    }
+    return {"x": x, "y": y, "z": z, "width": width, "height": height, "config": json.dumps(config), "filters": "[]"}
+
+# ==============================================================================
+# Complete Report Layout Generation with Non-Overlapping Geometry
+# ==============================================================================
+
 def generate_hr_report_layout():
+    # Page 1 Visuals: Executive Workforce & Turnover Overview (Canvas: 1280 x 720)
+    p1_visuals = [
+        # Header (y: 8, h: 36)
+        make_textbox("HeaderVisual_HR", 20, 8, 1240, 36, 1000, "Workforce Demographics & Attrition Executive Dashboard", "14pt"),
+        
+        # Slicers Row (y: 48, h: 70)
+        make_slicer("Slicer_Department", 20, 48, 220, 70, 1500, "Fact_Employees", "Department", "Department"),
+        make_slicer("Slicer_Gender", 260, 48, 200, 70, 1501, "Fact_Employees", "Gender", "Gender"),
+        make_slicer("Slicer_JobRole", 480, 48, 260, 70, 1502, "Fact_Employees", "Job_Role", "Job Role"),
+        make_slicer("Slicer_AgeGroup", 760, 48, 220, 70, 1503, "Fact_Employees", "Age Group", "Age Group"),
+        
+        # Executive KPI Cards (y: 130, h: 82, gap 12px from slicers)
+        make_card("Card_TotalHeadcount", 20, 130, 236, 82, 2000, "_HR_Measures", "Total Headcount"),
+        make_card("Card_ActiveHeadcount", 271, 130, 236, 82, 2001, "_HR_Measures", "Active Headcount"),
+        make_card("Card_Departed", 522, 130, 236, 82, 2002, "_HR_Measures", "Departed Employees"),
+        make_card("Card_AttritionRate", 773, 130, 236, 82, 2003, "_HR_Measures", "Attrition Rate %"),
+        make_card("Card_AvgIncome", 1024, 130, 236, 82, 2004, "_HR_Measures", "Average Monthly Income"),
+        
+        # Charts Row 1 (y: 228, h: 224, gap 16px from KPIs)
+        make_bar_chart("DeptAttritionBarChart", 20, 228, 600, 224, 3000, "Fact_Employees", "Department", "_HR_Measures", ["Attrition Rate %"], "Attrition Rate % by Department"),
+        make_column_chart("TenureCohortColumnChart", 635, 228, 625, 224, 3001, "Fact_Employees", "Tenure Cohort", "_HR_Measures", ["Attrition Rate %"], "Attrition Rate % by Company Tenure Cohort"),
+        
+        # Charts Row 2 (y: 468, h: 236, gap 16px from Row 1)
+        make_donut_chart("OvertimeDonutChart", 20, 468, 420, 236, 3002, "Fact_Employees", "Overtime", "_HR_Measures", "Departed Employees", "Departed Employees by Overtime Requirement"),
+        make_table("DeptSummaryTable", 455, 468, 805, 236, 3003, ["Fact_Employees", "_HR_Measures"], [
+            ("Fact_Employees", "Department", False),
+            ("_HR_Measures", "Total Headcount", True),
+            ("_HR_Measures", "Departed Employees", True),
+            ("_HR_Measures", "Active Headcount", True),
+            ("_HR_Measures", "Attrition Rate %", True),
+            ("_HR_Measures", "Average Monthly Income", True),
+            ("_HR_Measures", "Average Job Satisfaction", True)
+        ], "Departmental Workforce & Turnover Summary")
+    ]
+    
+    # Page 2 Visuals: Compensation & Flight Risk Deep Dive (Canvas: 1280 x 720)
+    p2_visuals = [
+        # Header (y: 10, h: 40)
+        make_textbox("HeaderVisual_HR_P2", 20, 10, 1240, 40, 1000, "Workforce Compensation Benchmarking & Flight Risk Analysis", "15pt"),
+        
+        # KPI Cards (y: 60, h: 86)
+        make_card("Card_FlightRisk", 20, 60, 295, 86, 2000, "_HR_Measures", "High Performer Flight Risk Count"),
+        make_card("Card_OvertimeAttrition", 335, 60, 295, 86, 2001, "_HR_Measures", "Overtime Attrition Rate %"),
+        make_card("Card_NonOvertimeAttrition", 650, 60, 295, 86, 2002, "_HR_Measures", "Non-Overtime Attrition Rate %"),
+        make_card("Card_LowSatCount", 965, 60, 295, 86, 2003, "_HR_Measures", "Low Satisfaction Headcount"),
+        
+        # Middle Row (y: 162, h: 265, gap 16px from KPIs)
+        make_matrix("RoleAttritionMatrix", 20, 162, 740, 265, 3000, [
+            ("Fact_Employees", "Department"),
+            ("Fact_Employees", "Job_Role")
+        ], ["Total Headcount", "Departed Employees", "Attrition Rate %", "Average Monthly Income", "Average Job Satisfaction"], "Department & Job Role Attrition Matrix"),
+        make_scatter("SalaryVsSatisfactionScatter", 780, 162, 480, 265, 3001, "Fact_Employees", "Job_Role", "Average Monthly Income", "Average Job Satisfaction", "Total Headcount", "Income vs. Job Satisfaction by Job Role"),
+        
+        # Bottom Row (y: 445, h: 260, gap 18px from Middle Row)
+        make_table("HighRiskEmployeeTable", 20, 445, 1240, 260, 3002, ["Fact_Employees"], [
+            ("Fact_Employees", "Employee_ID", False),
+            ("Fact_Employees", "Department", False),
+            ("Fact_Employees", "Job_Role", False),
+            ("Fact_Employees", "Age", False),
+            ("Fact_Employees", "Years_at_Company", False),
+            ("Fact_Employees", "Monthly_Income", False),
+            ("Fact_Employees", "Job_Satisfaction", False),
+            ("Fact_Employees", "Performance_Rating", False),
+            ("Fact_Employees", "Overtime", False),
+            ("Fact_Employees", "Attrition", False)
+        ], "High-Risk Talent Roster & Flight Risk Indicators")
+    ]
+    
     layout = {
         "id": 0,
         "resourcePackages": [],
@@ -162,137 +740,7 @@ def generate_hr_report_layout():
                 "displayName": "Executive Workforce & Turnover Overview",
                 "filters": "[]",
                 "ordinal": 0,
-                "visualContainers": [
-                    {
-                        "x": 20, "y": 15, "z": 1000, "width": 1240, "height": 45,
-                        "config": json.dumps({
-                            "name": "HeaderVisual_HR",
-                            "singleVisual": {
-                                "visualType": "textbox",
-                                "objects": {
-                                    "general": [{
-                                        "properties": {
-                                            "paragraphs": [{
-                                                "textRuns": [{
-                                                    "value": "Workforce Headcount & Attrition Executive Dashboard",
-                                                    "textStyle": {"fontFamily": "Segoe UI", "fontSize": "18pt", "fontWeight": "bold", "color": "#1A365D"}
-                                                }]
-                                            }]
-                                        }
-                                    }]
-                                }
-                            }
-                        })
-                    },
-                    {
-                        "x": 20, "y": 70, "z": 2000, "width": 230, "height": 95,
-                        "config": json.dumps({
-                            "name": "Card_TotalHeadcount",
-                            "singleVisual": {
-                                "visualType": "card",
-                                "projections": {"Fields": [{"queryRef": "_HR_Measures.Total Headcount"}]}
-                            }
-                        })
-                    },
-                    {
-                        "x": 270, "y": 70, "z": 2001, "width": 230, "height": 95,
-                        "config": json.dumps({
-                            "name": "Card_ActiveHeadcount",
-                            "singleVisual": {
-                                "visualType": "card",
-                                "projections": {"Fields": [{"queryRef": "_HR_Measures.Active Headcount"}]}
-                            }
-                        })
-                    },
-                    {
-                        "x": 520, "y": 70, "z": 2002, "width": 230, "height": 95,
-                        "config": json.dumps({
-                            "name": "Card_Departed",
-                            "singleVisual": {
-                                "visualType": "card",
-                                "projections": {"Fields": [{"queryRef": "_HR_Measures.Departed Employees"}]}
-                            }
-                        })
-                    },
-                    {
-                        "x": 770, "y": 70, "z": 2003, "width": 230, "height": 95,
-                        "config": json.dumps({
-                            "name": "Card_AttritionRate",
-                            "singleVisual": {
-                                "visualType": "card",
-                                "projections": {"Fields": [{"queryRef": "_HR_Measures.Attrition Rate %"}]}
-                            }
-                        })
-                    },
-                    {
-                        "x": 1020, "y": 70, "z": 2004, "width": 240, "height": 95,
-                        "config": json.dumps({
-                            "name": "Card_AvgIncome",
-                            "singleVisual": {
-                                "visualType": "card",
-                                "projections": {"Fields": [{"queryRef": "_HR_Measures.Average Monthly Income"}]}
-                            }
-                        })
-                    },
-                    {
-                        "x": 20, "y": 180, "z": 3000, "width": 600, "height": 270,
-                        "config": json.dumps({
-                            "name": "DeptAttritionBarChart",
-                            "singleVisual": {
-                                "visualType": "clusteredBarChart",
-                                "projections": {
-                                    "Category": [{"queryRef": "Fact_Employees.Department"}],
-                                    "Y": [{"queryRef": "_HR_Measures.Attrition Rate %"}]
-                                }
-                            }
-                        })
-                    },
-                    {
-                        "x": 640, "y": 180, "z": 3001, "width": 620, "height": 270,
-                        "config": json.dumps({
-                            "name": "TenureCohortColumnChart",
-                            "singleVisual": {
-                                "visualType": "clusteredColumnChart",
-                                "projections": {
-                                    "Category": [{"queryRef": "Fact_Employees.Tenure Cohort"}],
-                                    "Y": [{"queryRef": "_HR_Measures.Attrition Rate %"}]
-                                }
-                            }
-                        })
-                    },
-                    {
-                        "x": 20, "y": 465, "z": 3002, "width": 450, "height": 235,
-                        "config": json.dumps({
-                            "name": "OvertimeDonutChart",
-                            "singleVisual": {
-                                "visualType": "pieChart",
-                                "projections": {
-                                    "Category": [{"queryRef": "Fact_Employees.Overtime"}],
-                                    "Y": [{"queryRef": "_HR_Measures.Departed Employees"}]
-                                }
-                            }
-                        })
-                    },
-                    {
-                        "x": 490, "y": 465, "z": 3003, "width": 770, "height": 235,
-                        "config": json.dumps({
-                            "name": "DeptSummaryTable",
-                            "singleVisual": {
-                                "visualType": "tableEx",
-                                "projections": {
-                                    "Values": [
-                                        {"queryRef": "Fact_Employees.Department"},
-                                        {"queryRef": "_HR_Measures.Total Headcount"},
-                                        {"queryRef": "_HR_Measures.Departed Employees"},
-                                        {"queryRef": "_HR_Measures.Attrition Rate %"},
-                                        {"queryRef": "_HR_Measures.Average Monthly Income"},
-                                        {"queryRef": "_HR_Measures.Average Job Satisfaction"}
-                                    ]
-                                }
-                            }
-                        })
-                    }
-                ],
+                "visualContainers": p1_visuals,
                 "config": json.dumps({}),
                 "width": 1280,
                 "height": 720
@@ -303,103 +751,7 @@ def generate_hr_report_layout():
                 "displayName": "Compensation & Flight Risk Deep Dive",
                 "filters": "[]",
                 "ordinal": 1,
-                "visualContainers": [
-                    {
-                        "x": 20, "y": 15, "z": 1000, "width": 1240, "height": 45,
-                        "config": json.dumps({
-                            "name": "HeaderVisual_HR_P2",
-                            "singleVisual": {
-                                "visualType": "textbox",
-                                "objects": {
-                                    "general": [{
-                                        "properties": {
-                                            "paragraphs": [{
-                                                "textRuns": [{
-                                                    "value": "Workforce Compensation Benchmarking & Flight Risk Analysis",
-                                                    "textStyle": {"fontFamily": "Segoe UI", "fontSize": "18pt", "fontWeight": "bold", "color": "#1A365D"}
-                                                }]
-                                            }]
-                                        }
-                                    }]
-                                }
-                            }
-                        })
-                    },
-                    {
-                        "x": 20, "y": 70, "z": 2000, "width": 300, "height": 95,
-                        "config": json.dumps({
-                            "name": "Card_FlightRisk",
-                            "singleVisual": {
-                                "visualType": "card",
-                                "projections": {"Fields": [{"queryRef": "_HR_Measures.High Performer Flight Risk Count"}]}
-                            }
-                        })
-                    },
-                    {
-                        "x": 340, "y": 70, "z": 2001, "width": 300, "height": 95,
-                        "config": json.dumps({
-                            "name": "Card_OvertimeAttrition",
-                            "singleVisual": {
-                                "visualType": "card",
-                                "projections": {"Fields": [{"queryRef": "_HR_Measures.Overtime Attrition Rate %"}]}
-                            }
-                        })
-                    },
-                    {
-                        "x": 660, "y": 70, "z": 2002, "width": 300, "height": 95,
-                        "config": json.dumps({
-                            "name": "Card_NonOvertimeAttrition",
-                            "singleVisual": {
-                                "visualType": "card",
-                                "projections": {"Fields": [{"queryRef": "_HR_Measures.Non-Overtime Attrition Rate %"}]}
-                            }
-                        })
-                    },
-                    {
-                        "x": 980, "y": 70, "z": 2003, "width": 280, "height": 95,
-                        "config": json.dumps({
-                            "name": "Card_LowSatCount",
-                            "singleVisual": {
-                                "visualType": "card",
-                                "projections": {"Fields": [{"queryRef": "_HR_Measures.Low Satisfaction Headcount"}]}
-                            }
-                        })
-                    },
-                    {
-                        "x": 20, "y": 180, "z": 3000, "width": 750, "height": 520,
-                        "config": json.dumps({
-                            "name": "RoleAttritionMatrix",
-                            "singleVisual": {
-                                "visualType": "pivotTable",
-                                "projections": {
-                                    "Rows": [{"queryRef": "Fact_Employees.Department"}, {"queryRef": "Fact_Employees.Job_Role"}],
-                                    "Values": [
-                                        {"queryRef": "_HR_Measures.Total Headcount"},
-                                        {"queryRef": "_HR_Measures.Departed Employees"},
-                                        {"queryRef": "_HR_Measures.Attrition Rate %"},
-                                        {"queryRef": "_HR_Measures.Average Monthly Income"},
-                                        {"queryRef": "_HR_Measures.Average Job Satisfaction"}
-                                    ]
-                                }
-                            }
-                        })
-                    },
-                    {
-                        "x": 790, "y": 180, "z": 3001, "width": 470, "height": 520,
-                        "config": json.dumps({
-                            "name": "SalaryVsSatisfactionScatter",
-                            "singleVisual": {
-                                "visualType": "scatterChart",
-                                "projections": {
-                                    "Category": [{"queryRef": "Fact_Employees.Job_Role"}],
-                                    "X": [{"queryRef": "_HR_Measures.Average Monthly Income"}],
-                                    "Y": [{"queryRef": "_HR_Measures.Average Job Satisfaction"}],
-                                    "Size": [{"queryRef": "_HR_Measures.Total Headcount"}]
-                                }
-                            }
-                        })
-                    }
-                ],
+                "visualContainers": p2_visuals,
                 "config": json.dumps({}),
                 "width": 1280,
                 "height": 720

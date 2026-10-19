@@ -11,83 +11,129 @@
       "visualContainers": [
         {
           "x": 20,
-          "y": 15,
+          "y": 8,
           "z": 1000,
           "width": 1240,
-          "height": 45,
-          "config": "{\"name\": \"HeaderVisual_HR\", \"singleVisual\": {\"visualType\": \"textbox\", \"objects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Workforce Headcount & Attrition Executive Dashboard\", \"textStyle\": {\"fontFamily\": \"Segoe UI\", \"fontSize\": \"18pt\", \"fontWeight\": \"bold\", \"color\": \"#1A365D\"}}]}]}}]}}}"
+          "height": 36,
+          "config": "{\"name\": \"HeaderVisual_HR\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 8, \"z\": 1000, \"width\": 1240, \"height\": 36}}], \"singleVisual\": {\"visualType\": \"textbox\", \"objects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Workforce Demographics & Attrition Executive Dashboard\", \"textStyle\": {\"fontFamily\": \"Segoe UI\", \"fontSize\": \"14pt\", \"fontWeight\": \"bold\", \"color\": \"#1A365D\"}}]}]}}]}}}",
+          "filters": "[]"
         },
         {
           "x": 20,
-          "y": 70,
+          "y": 48,
+          "z": 1500,
+          "width": 220,
+          "height": 70,
+          "config": "{\"name\": \"Slicer_Department\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 48, \"z\": 1500, \"width\": 220, \"height\": 70}}], \"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"Fact_Employees.Department\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"s\", \"Entity\": \"Fact_Employees\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"s\"}}, \"Property\": \"Department\"}, \"Name\": \"Fact_Employees.Department\"}]}, \"objects\": {\"data\": [{\"properties\": {\"mode\": {\"expr\": {\"Literal\": {\"Value\": \"'Dropdown'\"}}}}}], \"header\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"10D\"}}}, \"titleText\": {\"expr\": {\"Literal\": {\"Value\": \"'Department'\"}}}}}], \"items\": [{\"properties\": {\"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"10D\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 260,
+          "y": 48,
+          "z": 1501,
+          "width": 200,
+          "height": 70,
+          "config": "{\"name\": \"Slicer_Gender\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 260, \"y\": 48, \"z\": 1501, \"width\": 200, \"height\": 70}}], \"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"Fact_Employees.Gender\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"s\", \"Entity\": \"Fact_Employees\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"s\"}}, \"Property\": \"Gender\"}, \"Name\": \"Fact_Employees.Gender\"}]}, \"objects\": {\"data\": [{\"properties\": {\"mode\": {\"expr\": {\"Literal\": {\"Value\": \"'Dropdown'\"}}}}}], \"header\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"10D\"}}}, \"titleText\": {\"expr\": {\"Literal\": {\"Value\": \"'Gender'\"}}}}}], \"items\": [{\"properties\": {\"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"10D\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 480,
+          "y": 48,
+          "z": 1502,
+          "width": 260,
+          "height": 70,
+          "config": "{\"name\": \"Slicer_JobRole\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 480, \"y\": 48, \"z\": 1502, \"width\": 260, \"height\": 70}}], \"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"Fact_Employees.Job_Role\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"s\", \"Entity\": \"Fact_Employees\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"s\"}}, \"Property\": \"Job_Role\"}, \"Name\": \"Fact_Employees.Job_Role\"}]}, \"objects\": {\"data\": [{\"properties\": {\"mode\": {\"expr\": {\"Literal\": {\"Value\": \"'Dropdown'\"}}}}}], \"header\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"10D\"}}}, \"titleText\": {\"expr\": {\"Literal\": {\"Value\": \"'Job Role'\"}}}}}], \"items\": [{\"properties\": {\"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"10D\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 760,
+          "y": 48,
+          "z": 1503,
+          "width": 220,
+          "height": 70,
+          "config": "{\"name\": \"Slicer_AgeGroup\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 760, \"y\": 48, \"z\": 1503, \"width\": 220, \"height\": 70}}], \"singleVisual\": {\"visualType\": \"slicer\", \"projections\": {\"Values\": [{\"queryRef\": \"Fact_Employees.Age Group\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"s\", \"Entity\": \"Fact_Employees\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"s\"}}, \"Property\": \"Age Group\"}, \"Name\": \"Fact_Employees.Age Group\"}]}, \"objects\": {\"data\": [{\"properties\": {\"mode\": {\"expr\": {\"Literal\": {\"Value\": \"'Dropdown'\"}}}}}], \"header\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"10D\"}}}, \"titleText\": {\"expr\": {\"Literal\": {\"Value\": \"'Age Group'\"}}}}}], \"items\": [{\"properties\": {\"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"10D\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 20,
+          "y": 130,
           "z": 2000,
-          "width": 230,
-          "height": 95,
-          "config": "{\"name\": \"Card_TotalHeadcount\", \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Fields\": [{\"queryRef\": \"_HR_Measures.Total Headcount\"}]}}}"
+          "width": 236,
+          "height": 82,
+          "config": "{\"name\": \"Card_TotalHeadcount\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 130, \"z\": 2000, \"width\": 236, \"height\": 82}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_HR_Measures.Total Headcount\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_HR_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Total Headcount\"}, \"Name\": \"_HR_Measures.Total Headcount\"}]}, \"objects\": {\"labels\": [{\"properties\": {\"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"20D\"}}}, \"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#1A365D'\"}}}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"10D\"}}}, \"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#64748B'\"}}}}}}}]}}}",
+          "filters": "[]"
         },
         {
-          "x": 270,
-          "y": 70,
+          "x": 271,
+          "y": 130,
           "z": 2001,
-          "width": 230,
-          "height": 95,
-          "config": "{\"name\": \"Card_ActiveHeadcount\", \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Fields\": [{\"queryRef\": \"_HR_Measures.Active Headcount\"}]}}}"
+          "width": 236,
+          "height": 82,
+          "config": "{\"name\": \"Card_ActiveHeadcount\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 271, \"y\": 130, \"z\": 2001, \"width\": 236, \"height\": 82}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_HR_Measures.Active Headcount\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_HR_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Active Headcount\"}, \"Name\": \"_HR_Measures.Active Headcount\"}]}, \"objects\": {\"labels\": [{\"properties\": {\"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"20D\"}}}, \"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#1A365D'\"}}}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"10D\"}}}, \"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#64748B'\"}}}}}}}]}}}",
+          "filters": "[]"
         },
         {
-          "x": 520,
-          "y": 70,
+          "x": 522,
+          "y": 130,
           "z": 2002,
-          "width": 230,
-          "height": 95,
-          "config": "{\"name\": \"Card_Departed\", \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Fields\": [{\"queryRef\": \"_HR_Measures.Departed Employees\"}]}}}"
+          "width": 236,
+          "height": 82,
+          "config": "{\"name\": \"Card_Departed\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 522, \"y\": 130, \"z\": 2002, \"width\": 236, \"height\": 82}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_HR_Measures.Departed Employees\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_HR_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Departed Employees\"}, \"Name\": \"_HR_Measures.Departed Employees\"}]}, \"objects\": {\"labels\": [{\"properties\": {\"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"20D\"}}}, \"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#1A365D'\"}}}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"10D\"}}}, \"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#64748B'\"}}}}}}}]}}}",
+          "filters": "[]"
         },
         {
-          "x": 770,
-          "y": 70,
+          "x": 773,
+          "y": 130,
           "z": 2003,
-          "width": 230,
-          "height": 95,
-          "config": "{\"name\": \"Card_AttritionRate\", \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Fields\": [{\"queryRef\": \"_HR_Measures.Attrition Rate %\"}]}}}"
+          "width": 236,
+          "height": 82,
+          "config": "{\"name\": \"Card_AttritionRate\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 773, \"y\": 130, \"z\": 2003, \"width\": 236, \"height\": 82}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_HR_Measures.Attrition Rate %\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_HR_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Attrition Rate %\"}, \"Name\": \"_HR_Measures.Attrition Rate %\"}]}, \"objects\": {\"labels\": [{\"properties\": {\"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"20D\"}}}, \"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#1A365D'\"}}}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"10D\"}}}, \"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#64748B'\"}}}}}}}]}}}",
+          "filters": "[]"
         },
         {
-          "x": 1020,
-          "y": 70,
+          "x": 1024,
+          "y": 130,
           "z": 2004,
-          "width": 240,
-          "height": 95,
-          "config": "{\"name\": \"Card_AvgIncome\", \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Fields\": [{\"queryRef\": \"_HR_Measures.Average Monthly Income\"}]}}}"
+          "width": 236,
+          "height": 82,
+          "config": "{\"name\": \"Card_AvgIncome\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 1024, \"y\": 130, \"z\": 2004, \"width\": 236, \"height\": 82}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_HR_Measures.Average Monthly Income\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_HR_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Average Monthly Income\"}, \"Name\": \"_HR_Measures.Average Monthly Income\"}]}, \"objects\": {\"labels\": [{\"properties\": {\"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"20D\"}}}, \"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#1A365D'\"}}}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"10D\"}}}, \"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#64748B'\"}}}}}}}]}}}",
+          "filters": "[]"
         },
         {
           "x": 20,
-          "y": 180,
+          "y": 228,
           "z": 3000,
           "width": 600,
-          "height": 270,
-          "config": "{\"name\": \"DeptAttritionBarChart\", \"singleVisual\": {\"visualType\": \"clusteredBarChart\", \"projections\": {\"Category\": [{\"queryRef\": \"Fact_Employees.Department\"}], \"Y\": [{\"queryRef\": \"_HR_Measures.Attrition Rate %\"}]}}}"
+          "height": 224,
+          "config": "{\"name\": \"DeptAttritionBarChart\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 228, \"z\": 3000, \"width\": 600, \"height\": 224}}], \"singleVisual\": {\"visualType\": \"clusteredBarChart\", \"projections\": {\"Category\": [{\"queryRef\": \"Fact_Employees.Department\", \"active\": true}], \"Y\": [{\"queryRef\": \"_HR_Measures.Attrition Rate %\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c\", \"Entity\": \"Fact_Employees\", \"Type\": 0}, {\"Name\": \"m\", \"Entity\": \"_HR_Measures\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c\"}}, \"Property\": \"Department\"}, \"Name\": \"Fact_Employees.Department\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Attrition Rate %\"}, \"Name\": \"_HR_Measures.Attrition Rate %\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Attrition Rate % by Department'\"}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"12D\"}}}, \"fontColor\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#1A365D'\"}}}}}}}], \"categoryAxis\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"showAxisTitle\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"9D\"}}}}}], \"valueAxis\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"showAxisTitle\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}}}]}}}",
+          "filters": "[]"
         },
         {
-          "x": 640,
-          "y": 180,
+          "x": 635,
+          "y": 228,
           "z": 3001,
-          "width": 620,
-          "height": 270,
-          "config": "{\"name\": \"TenureCohortColumnChart\", \"singleVisual\": {\"visualType\": \"clusteredColumnChart\", \"projections\": {\"Category\": [{\"queryRef\": \"Fact_Employees.Tenure Cohort\"}], \"Y\": [{\"queryRef\": \"_HR_Measures.Attrition Rate %\"}]}}}"
+          "width": 625,
+          "height": 224,
+          "config": "{\"name\": \"TenureCohortColumnChart\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 635, \"y\": 228, \"z\": 3001, \"width\": 625, \"height\": 224}}], \"singleVisual\": {\"visualType\": \"clusteredColumnChart\", \"projections\": {\"Category\": [{\"queryRef\": \"Fact_Employees.Tenure Cohort\", \"active\": true}], \"Y\": [{\"queryRef\": \"_HR_Measures.Attrition Rate %\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c\", \"Entity\": \"Fact_Employees\", \"Type\": 0}, {\"Name\": \"m\", \"Entity\": \"_HR_Measures\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c\"}}, \"Property\": \"Tenure Cohort\"}, \"Name\": \"Fact_Employees.Tenure Cohort\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Attrition Rate %\"}, \"Name\": \"_HR_Measures.Attrition Rate %\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Attrition Rate % by Company Tenure Cohort'\"}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"12D\"}}}, \"fontColor\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#1A365D'\"}}}}}}}], \"categoryAxis\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"showAxisTitle\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"9D\"}}}}}], \"valueAxis\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"showAxisTitle\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}}}]}}}",
+          "filters": "[]"
         },
         {
           "x": 20,
-          "y": 465,
+          "y": 468,
           "z": 3002,
-          "width": 450,
-          "height": 235,
-          "config": "{\"name\": \"OvertimeDonutChart\", \"singleVisual\": {\"visualType\": \"pieChart\", \"projections\": {\"Category\": [{\"queryRef\": \"Fact_Employees.Overtime\"}], \"Y\": [{\"queryRef\": \"_HR_Measures.Departed Employees\"}]}}}"
+          "width": 420,
+          "height": 236,
+          "config": "{\"name\": \"OvertimeDonutChart\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 468, \"z\": 3002, \"width\": 420, \"height\": 236}}], \"singleVisual\": {\"visualType\": \"pieChart\", \"projections\": {\"Category\": [{\"queryRef\": \"Fact_Employees.Overtime\"}], \"Y\": [{\"queryRef\": \"_HR_Measures.Departed Employees\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"c\", \"Entity\": \"Fact_Employees\", \"Type\": 0}, {\"Name\": \"m\", \"Entity\": \"_HR_Measures\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"c\"}}, \"Property\": \"Overtime\"}, \"Name\": \"Fact_Employees.Overtime\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Departed Employees\"}, \"Name\": \"_HR_Measures.Departed Employees\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Departed Employees by Overtime Requirement'\"}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"12D\"}}}, \"fontColor\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#1A365D'\"}}}}}}}], \"legend\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"position\": {\"expr\": {\"Literal\": {\"Value\": \"'Right'\"}}}}}]}}}",
+          "filters": "[]"
         },
         {
-          "x": 490,
-          "y": 465,
+          "x": 455,
+          "y": 468,
           "z": 3003,
-          "width": 770,
-          "height": 235,
-          "config": "{\"name\": \"DeptSummaryTable\", \"singleVisual\": {\"visualType\": \"tableEx\", \"projections\": {\"Values\": [{\"queryRef\": \"Fact_Employees.Department\"}, {\"queryRef\": \"_HR_Measures.Total Headcount\"}, {\"queryRef\": \"_HR_Measures.Departed Employees\"}, {\"queryRef\": \"_HR_Measures.Attrition Rate %\"}, {\"queryRef\": \"_HR_Measures.Average Monthly Income\"}, {\"queryRef\": \"_HR_Measures.Average Job Satisfaction\"}]}}}"
+          "width": 805,
+          "height": 236,
+          "config": "{\"name\": \"DeptSummaryTable\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 455, \"y\": 468, \"z\": 3003, \"width\": 805, \"height\": 236}}], \"singleVisual\": {\"visualType\": \"tableEx\", \"projections\": {\"Values\": [{\"queryRef\": \"Fact_Employees.Department\"}, {\"queryRef\": \"_HR_Measures.Total Headcount\"}, {\"queryRef\": \"_HR_Measures.Departed Employees\"}, {\"queryRef\": \"_HR_Measures.Active Headcount\"}, {\"queryRef\": \"_HR_Measures.Attrition Rate %\"}, {\"queryRef\": \"_HR_Measures.Average Monthly Income\"}, {\"queryRef\": \"_HR_Measures.Average Job Satisfaction\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"t0\", \"Entity\": \"Fact_Employees\", \"Type\": 0}, {\"Name\": \"t1\", \"Entity\": \"_HR_Measures\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"Department\"}, \"Name\": \"Fact_Employees.Department\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t1\"}}, \"Property\": \"Total Headcount\"}, \"Name\": \"_HR_Measures.Total Headcount\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t1\"}}, \"Property\": \"Departed Employees\"}, \"Name\": \"_HR_Measures.Departed Employees\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t1\"}}, \"Property\": \"Active Headcount\"}, \"Name\": \"_HR_Measures.Active Headcount\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t1\"}}, \"Property\": \"Attrition Rate %\"}, \"Name\": \"_HR_Measures.Attrition Rate %\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t1\"}}, \"Property\": \"Average Monthly Income\"}, \"Name\": \"_HR_Measures.Average Monthly Income\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t1\"}}, \"Property\": \"Average Job Satisfaction\"}, \"Name\": \"_HR_Measures.Average Job Satisfaction\"}]}, \"objects\": {\"stylePreset\": [{\"properties\": {\"name\": {\"expr\": {\"Literal\": {\"Value\": \"'Condensed'\"}}}}}], \"values\": [{\"properties\": {\"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"9D\"}}}, \"wordWrap\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}}}], \"columnHeaders\": [{\"properties\": {\"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"9D\"}}}, \"wordWrap\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"autoSizeColumnWidth\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}}}], \"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Departmental Workforce & Turnover Summary'\"}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"11D\"}}}, \"fontColor\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#1A365D'\"}}}}}}}]}}}",
+          "filters": "[]"
         }
       ],
       "config": "{}",
@@ -103,59 +149,75 @@
       "visualContainers": [
         {
           "x": 20,
-          "y": 15,
+          "y": 10,
           "z": 1000,
           "width": 1240,
-          "height": 45,
-          "config": "{\"name\": \"HeaderVisual_HR_P2\", \"singleVisual\": {\"visualType\": \"textbox\", \"objects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Workforce Compensation Benchmarking & Flight Risk Analysis\", \"textStyle\": {\"fontFamily\": \"Segoe UI\", \"fontSize\": \"18pt\", \"fontWeight\": \"bold\", \"color\": \"#1A365D\"}}]}]}}]}}}"
+          "height": 40,
+          "config": "{\"name\": \"HeaderVisual_HR_P2\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 10, \"z\": 1000, \"width\": 1240, \"height\": 40}}], \"singleVisual\": {\"visualType\": \"textbox\", \"objects\": {\"general\": [{\"properties\": {\"paragraphs\": [{\"textRuns\": [{\"value\": \"Workforce Compensation Benchmarking & Flight Risk Analysis\", \"textStyle\": {\"fontFamily\": \"Segoe UI\", \"fontSize\": \"15pt\", \"fontWeight\": \"bold\", \"color\": \"#1A365D\"}}]}]}}]}}}",
+          "filters": "[]"
         },
         {
           "x": 20,
-          "y": 70,
+          "y": 60,
           "z": 2000,
-          "width": 300,
-          "height": 95,
-          "config": "{\"name\": \"Card_FlightRisk\", \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Fields\": [{\"queryRef\": \"_HR_Measures.High Performer Flight Risk Count\"}]}}}"
+          "width": 295,
+          "height": 86,
+          "config": "{\"name\": \"Card_FlightRisk\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 60, \"z\": 2000, \"width\": 295, \"height\": 86}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_HR_Measures.High Performer Flight Risk Count\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_HR_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"High Performer Flight Risk Count\"}, \"Name\": \"_HR_Measures.High Performer Flight Risk Count\"}]}, \"objects\": {\"labels\": [{\"properties\": {\"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"20D\"}}}, \"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#1A365D'\"}}}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"10D\"}}}, \"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#64748B'\"}}}}}}}]}}}",
+          "filters": "[]"
         },
         {
-          "x": 340,
-          "y": 70,
+          "x": 335,
+          "y": 60,
           "z": 2001,
-          "width": 300,
-          "height": 95,
-          "config": "{\"name\": \"Card_OvertimeAttrition\", \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Fields\": [{\"queryRef\": \"_HR_Measures.Overtime Attrition Rate %\"}]}}}"
+          "width": 295,
+          "height": 86,
+          "config": "{\"name\": \"Card_OvertimeAttrition\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 335, \"y\": 60, \"z\": 2001, \"width\": 295, \"height\": 86}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_HR_Measures.Overtime Attrition Rate %\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_HR_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Overtime Attrition Rate %\"}, \"Name\": \"_HR_Measures.Overtime Attrition Rate %\"}]}, \"objects\": {\"labels\": [{\"properties\": {\"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"20D\"}}}, \"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#1A365D'\"}}}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"10D\"}}}, \"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#64748B'\"}}}}}}}]}}}",
+          "filters": "[]"
         },
         {
-          "x": 660,
-          "y": 70,
+          "x": 650,
+          "y": 60,
           "z": 2002,
-          "width": 300,
-          "height": 95,
-          "config": "{\"name\": \"Card_NonOvertimeAttrition\", \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Fields\": [{\"queryRef\": \"_HR_Measures.Non-Overtime Attrition Rate %\"}]}}}"
+          "width": 295,
+          "height": 86,
+          "config": "{\"name\": \"Card_NonOvertimeAttrition\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 650, \"y\": 60, \"z\": 2002, \"width\": 295, \"height\": 86}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_HR_Measures.Non-Overtime Attrition Rate %\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_HR_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Non-Overtime Attrition Rate %\"}, \"Name\": \"_HR_Measures.Non-Overtime Attrition Rate %\"}]}, \"objects\": {\"labels\": [{\"properties\": {\"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"20D\"}}}, \"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#1A365D'\"}}}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"10D\"}}}, \"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#64748B'\"}}}}}}}]}}}",
+          "filters": "[]"
         },
         {
-          "x": 980,
-          "y": 70,
+          "x": 965,
+          "y": 60,
           "z": 2003,
-          "width": 280,
-          "height": 95,
-          "config": "{\"name\": \"Card_LowSatCount\", \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Fields\": [{\"queryRef\": \"_HR_Measures.Low Satisfaction Headcount\"}]}}}"
+          "width": 295,
+          "height": 86,
+          "config": "{\"name\": \"Card_LowSatCount\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 965, \"y\": 60, \"z\": 2003, \"width\": 295, \"height\": 86}}], \"singleVisual\": {\"visualType\": \"card\", \"projections\": {\"Values\": [{\"queryRef\": \"_HR_Measures.Low Satisfaction Headcount\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"m\", \"Entity\": \"_HR_Measures\", \"Type\": 0}], \"Select\": [{\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Low Satisfaction Headcount\"}, \"Name\": \"_HR_Measures.Low Satisfaction Headcount\"}]}, \"objects\": {\"labels\": [{\"properties\": {\"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"20D\"}}}, \"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#1A365D'\"}}}}}}}], \"categoryLabels\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"10D\"}}}, \"color\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#64748B'\"}}}}}}}]}}}",
+          "filters": "[]"
         },
         {
           "x": 20,
-          "y": 180,
+          "y": 162,
           "z": 3000,
-          "width": 750,
-          "height": 520,
-          "config": "{\"name\": \"RoleAttritionMatrix\", \"singleVisual\": {\"visualType\": \"pivotTable\", \"projections\": {\"Rows\": [{\"queryRef\": \"Fact_Employees.Department\"}, {\"queryRef\": \"Fact_Employees.Job_Role\"}], \"Values\": [{\"queryRef\": \"_HR_Measures.Total Headcount\"}, {\"queryRef\": \"_HR_Measures.Departed Employees\"}, {\"queryRef\": \"_HR_Measures.Attrition Rate %\"}, {\"queryRef\": \"_HR_Measures.Average Monthly Income\"}, {\"queryRef\": \"_HR_Measures.Average Job Satisfaction\"}]}}}"
+          "width": 740,
+          "height": 265,
+          "config": "{\"name\": \"RoleAttritionMatrix\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 162, \"z\": 3000, \"width\": 740, \"height\": 265}}], \"singleVisual\": {\"visualType\": \"pivotTable\", \"projections\": {\"Rows\": [{\"queryRef\": \"Fact_Employees.Department\"}, {\"queryRef\": \"Fact_Employees.Job_Role\"}], \"Values\": [{\"queryRef\": \"_HR_Measures.Total Headcount\"}, {\"queryRef\": \"_HR_Measures.Departed Employees\"}, {\"queryRef\": \"_HR_Measures.Attrition Rate %\"}, {\"queryRef\": \"_HR_Measures.Average Monthly Income\"}, {\"queryRef\": \"_HR_Measures.Average Job Satisfaction\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"e\", \"Entity\": \"Fact_Employees\", \"Type\": 0}, {\"Name\": \"m\", \"Entity\": \"_HR_Measures\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"e\"}}, \"Property\": \"Department\"}, \"Name\": \"Fact_Employees.Department\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"e\"}}, \"Property\": \"Job_Role\"}, \"Name\": \"Fact_Employees.Job_Role\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Total Headcount\"}, \"Name\": \"_HR_Measures.Total Headcount\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Departed Employees\"}, \"Name\": \"_HR_Measures.Departed Employees\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Attrition Rate %\"}, \"Name\": \"_HR_Measures.Attrition Rate %\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Average Monthly Income\"}, \"Name\": \"_HR_Measures.Average Monthly Income\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Average Job Satisfaction\"}, \"Name\": \"_HR_Measures.Average Job Satisfaction\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Department & Job Role Attrition Matrix'\"}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"12D\"}}}, \"fontColor\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#1A365D'\"}}}}}}}], \"rowHeaders\": [{\"properties\": {\"stepped\": {\"expr\": {\"Literal\": {\"Value\": \"false\"}}}, \"showExpandCollapseButtons\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}}}], \"subTotals\": [{\"properties\": {\"rowSubtotals\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"perRowLevel\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"grandTotal\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}}}]}}}",
+          "filters": "[]"
         },
         {
-          "x": 790,
-          "y": 180,
+          "x": 780,
+          "y": 162,
           "z": 3001,
-          "width": 470,
-          "height": 520,
-          "config": "{\"name\": \"SalaryVsSatisfactionScatter\", \"singleVisual\": {\"visualType\": \"scatterChart\", \"projections\": {\"Category\": [{\"queryRef\": \"Fact_Employees.Job_Role\"}], \"X\": [{\"queryRef\": \"_HR_Measures.Average Monthly Income\"}], \"Y\": [{\"queryRef\": \"_HR_Measures.Average Job Satisfaction\"}], \"Size\": [{\"queryRef\": \"_HR_Measures.Total Headcount\"}]}}}"
+          "width": 480,
+          "height": 265,
+          "config": "{\"name\": \"SalaryVsSatisfactionScatter\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 780, \"y\": 162, \"z\": 3001, \"width\": 480, \"height\": 265}}], \"singleVisual\": {\"visualType\": \"scatterChart\", \"projections\": {\"Category\": [{\"queryRef\": \"Fact_Employees.Job_Role\"}], \"X\": [{\"queryRef\": \"_HR_Measures.Average Monthly Income\"}], \"Y\": [{\"queryRef\": \"_HR_Measures.Average Job Satisfaction\"}], \"Size\": [{\"queryRef\": \"_HR_Measures.Total Headcount\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"e\", \"Entity\": \"Fact_Employees\", \"Type\": 0}, {\"Name\": \"m\", \"Entity\": \"_HR_Measures\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"e\"}}, \"Property\": \"Job_Role\"}, \"Name\": \"Fact_Employees.Job_Role\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Average Monthly Income\"}, \"Name\": \"_HR_Measures.Average Monthly Income\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Average Job Satisfaction\"}, \"Name\": \"_HR_Measures.Average Job Satisfaction\"}, {\"Measure\": {\"Expression\": {\"SourceRef\": {\"Source\": \"m\"}}, \"Property\": \"Total Headcount\"}, \"Name\": \"_HR_Measures.Total Headcount\"}]}, \"objects\": {\"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'Income vs. Job Satisfaction by Job Role'\"}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"12D\"}}}, \"fontColor\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#1A365D'\"}}}}}}}], \"categoryAxis\": [{\"properties\": {\"showAxisTitle\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"axisTitle\": {\"expr\": {\"Literal\": {\"Value\": \"'Average Monthly Income'\"}}}}}], \"valueAxis\": [{\"properties\": {\"showAxisTitle\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"axisTitle\": {\"expr\": {\"Literal\": {\"Value\": \"'Average Job Satisfaction'\"}}}}}]}}}",
+          "filters": "[]"
+        },
+        {
+          "x": 20,
+          "y": 445,
+          "z": 3002,
+          "width": 1240,
+          "height": 260,
+          "config": "{\"name\": \"HighRiskEmployeeTable\", \"layouts\": [{\"id\": 0, \"position\": {\"x\": 20, \"y\": 445, \"z\": 3002, \"width\": 1240, \"height\": 260}}], \"singleVisual\": {\"visualType\": \"tableEx\", \"projections\": {\"Values\": [{\"queryRef\": \"Fact_Employees.Employee_ID\"}, {\"queryRef\": \"Fact_Employees.Department\"}, {\"queryRef\": \"Fact_Employees.Job_Role\"}, {\"queryRef\": \"Fact_Employees.Age\"}, {\"queryRef\": \"Fact_Employees.Years_at_Company\"}, {\"queryRef\": \"Fact_Employees.Monthly_Income\"}, {\"queryRef\": \"Fact_Employees.Job_Satisfaction\"}, {\"queryRef\": \"Fact_Employees.Performance_Rating\"}, {\"queryRef\": \"Fact_Employees.Overtime\"}, {\"queryRef\": \"Fact_Employees.Attrition\"}]}, \"prototypeQuery\": {\"Version\": 2, \"From\": [{\"Name\": \"t0\", \"Entity\": \"Fact_Employees\", \"Type\": 0}], \"Select\": [{\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"Employee_ID\"}, \"Name\": \"Fact_Employees.Employee_ID\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"Department\"}, \"Name\": \"Fact_Employees.Department\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"Job_Role\"}, \"Name\": \"Fact_Employees.Job_Role\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"Age\"}, \"Name\": \"Fact_Employees.Age\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"Years_at_Company\"}, \"Name\": \"Fact_Employees.Years_at_Company\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"Monthly_Income\"}, \"Name\": \"Fact_Employees.Monthly_Income\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"Job_Satisfaction\"}, \"Name\": \"Fact_Employees.Job_Satisfaction\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"Performance_Rating\"}, \"Name\": \"Fact_Employees.Performance_Rating\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"Overtime\"}, \"Name\": \"Fact_Employees.Overtime\"}, {\"Column\": {\"Expression\": {\"SourceRef\": {\"Source\": \"t0\"}}, \"Property\": \"Attrition\"}, \"Name\": \"Fact_Employees.Attrition\"}]}, \"objects\": {\"stylePreset\": [{\"properties\": {\"name\": {\"expr\": {\"Literal\": {\"Value\": \"'Condensed'\"}}}}}], \"values\": [{\"properties\": {\"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"9D\"}}}, \"wordWrap\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}}}], \"columnHeaders\": [{\"properties\": {\"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"9D\"}}}, \"wordWrap\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"autoSizeColumnWidth\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}}}], \"title\": [{\"properties\": {\"show\": {\"expr\": {\"Literal\": {\"Value\": \"true\"}}}, \"text\": {\"expr\": {\"Literal\": {\"Value\": \"'High-Risk Talent Roster & Flight Risk Indicators'\"}}}, \"fontSize\": {\"expr\": {\"Literal\": {\"Value\": \"11D\"}}}, \"fontColor\": {\"solid\": {\"color\": {\"expr\": {\"Literal\": {\"Value\": \"'#1A365D'\"}}}}}}}]}}}",
+          "filters": "[]"
         }
       ],
       "config": "{}",

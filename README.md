@@ -44,6 +44,7 @@ hr-analytics-powerbi/
 ├── hr-analytics-dashboard.Report/      # Report front-end definition (definition.pbir, report.json)
 ├── hr-analytics-dashboard.SemanticModel/ # Tabular semantic model (model.bim, definition.pbism)
 ├── build_hr_project.py                 # Automated builder script for PBIP and PBIT assets
+├── test_hr_data.py                     # Automated unit and benchmark parity test suite
 ├── data_model.md                       # Mermaid schema diagram & cardinality docs
 ├── dax_measures.dax                    # Complete DAX formula library with inline comments
 ├── power_query_transformations.m       # Power Query M-scripts for data prep & age cohorts
@@ -188,6 +189,8 @@ Every core People Analytics KPI has been validated and reconciled across MySQL 8
 
 1. Open Power BI Desktop.
 2. Double-click `hr-analytics-dashboard.pbip` or `hr-analytics-dashboard.pbit`.
-3. The dataset and report pages load automatically.
-4. Click **File** -> **Save As** -> Choose **Power BI Desktop Document (*.pbix)** -> Save as `hr-analytics-dashboard.pbix` in this project directory.
+3. The dataset and report pages load automatically with all visual bindings.
+4. Click **File** -> **Save As** -> in the "Save as type" dropdown, explicitly select **Power BI file (*.pbix)** -> Save as `hr-analytics-dashboard.pbix` in this project directory.
+   > [!IMPORTANT]
+   > Make sure the "Save as type" dropdown is switched from Power BI Project (*.pbip) to **Power BI file (*.pbix)**. Otherwise, Power BI Desktop defaults to saving as a `.pbip` project directory.
 
