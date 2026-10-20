@@ -1,0 +1,162 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "DeptSummaryTable",
+  "position": {
+    "x": 455,
+    "y": 468,
+    "z": 13000,
+    "height": 236,
+    "width": 805
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Employees"
+                    }
+                  },
+                  "Property": "Department"
+                }
+              },
+              "queryRef": "Fact_Employees.Department"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_HR_Measures"
+                    }
+                  },
+                  "Property": "Total Headcount"
+                }
+              },
+              "queryRef": "_HR_Measures.Total Headcount"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_HR_Measures"
+                    }
+                  },
+                  "Property": "Departed Employees"
+                }
+              },
+              "queryRef": "_HR_Measures.Departed Employees"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_HR_Measures"
+                    }
+                  },
+                  "Property": "Active Headcount"
+                }
+              },
+              "queryRef": "_HR_Measures.Active Headcount"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_HR_Measures"
+                    }
+                  },
+                  "Property": "Attrition Rate %"
+                }
+              },
+              "queryRef": "_HR_Measures.Attrition Rate %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_HR_Measures"
+                    }
+                  },
+                  "Property": "Average Monthly Income"
+                }
+              },
+              "queryRef": "_HR_Measures.Average Monthly Income"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_HR_Measures"
+                    }
+                  },
+                  "Property": "Average Job Satisfaction"
+                }
+              },
+              "queryRef": "_HR_Measures.Average Job Satisfaction"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "values": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
+                }
+              }
+            },
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
+                }
+              }
+            },
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "autoSizeColumnWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

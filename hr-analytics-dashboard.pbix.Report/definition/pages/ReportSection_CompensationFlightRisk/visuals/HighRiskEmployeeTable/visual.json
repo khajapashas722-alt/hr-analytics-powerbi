@@ -1,0 +1,201 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "HighRiskEmployeeTable",
+  "position": {
+    "x": 20,
+    "y": 445,
+    "z": 7000,
+    "height": 260,
+    "width": 1240
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Employees"
+                    }
+                  },
+                  "Property": "Employee_ID"
+                }
+              },
+              "queryRef": "Fact_Employees.Employee_ID"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Employees"
+                    }
+                  },
+                  "Property": "Department"
+                }
+              },
+              "queryRef": "Fact_Employees.Department"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Employees"
+                    }
+                  },
+                  "Property": "Job_Role"
+                }
+              },
+              "queryRef": "Fact_Employees.Job_Role"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Employees"
+                    }
+                  },
+                  "Property": "Age"
+                }
+              },
+              "queryRef": "Fact_Employees.Age"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Employees"
+                    }
+                  },
+                  "Property": "Years_at_Company"
+                }
+              },
+              "queryRef": "Fact_Employees.Years_at_Company"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Employees"
+                    }
+                  },
+                  "Property": "Monthly_Income"
+                }
+              },
+              "queryRef": "Fact_Employees.Monthly_Income"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Employees"
+                    }
+                  },
+                  "Property": "Job_Satisfaction"
+                }
+              },
+              "queryRef": "Fact_Employees.Job_Satisfaction"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Employees"
+                    }
+                  },
+                  "Property": "Performance_Rating"
+                }
+              },
+              "queryRef": "Fact_Employees.Performance_Rating"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Employees"
+                    }
+                  },
+                  "Property": "Overtime"
+                }
+              },
+              "queryRef": "Fact_Employees.Overtime"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Employees"
+                    }
+                  },
+                  "Property": "Attrition"
+                }
+              },
+              "queryRef": "Fact_Employees.Attrition"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "values": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
+                }
+              }
+            },
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
+                }
+              }
+            },
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "autoSizeColumnWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

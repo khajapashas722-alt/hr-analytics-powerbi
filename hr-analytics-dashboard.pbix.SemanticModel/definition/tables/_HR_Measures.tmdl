@@ -1,0 +1,97 @@
+table _HR_Measures
+	lineageTag: cbc18109-d9ca-4d2e-ad13-4f98d032d4e1
+
+	measure 'Total Headcount' = COUNTROWS(Fact_Employees)
+		formatString: #,0
+		lineageTag: 074923b7-2a9e-45fa-9ecd-7f76c8b62179
+
+	measure 'Departed Employees' = CALCULATE(COUNTROWS(Fact_Employees), Fact_Employees[Attrition] = "Yes")
+		formatString: #,0
+		lineageTag: 13b858fe-7546-4f0c-b048-0665ca541bb0
+
+	measure 'Active Headcount' = CALCULATE(COUNTROWS(Fact_Employees), Fact_Employees[Attrition] = "No")
+		formatString: #,0
+		lineageTag: 5837df06-fb3c-458d-8a6a-74fc75b9ce65
+
+	measure 'Retention Rate %' = DIVIDE([Active Headcount], [Total Headcount], 0)
+		formatString: 0.00%
+		lineageTag: 6e7cd97f-69db-49a0-b80b-278655312e37
+
+	measure 'Attrition Rate %' = DIVIDE([Departed Employees], [Total Headcount], 0)
+		formatString: 0.00%
+		lineageTag: c8d07305-d32e-4b63-9cee-263cbc23a41d
+
+	measure 'Average Monthly Income' = AVERAGE(Fact_Employees[Monthly_Income])
+		formatString: $#,0.00;($#,0.00);$#,0.00
+		lineageTag: c182b4ba-ef66-4e8b-afbf-d8cb3bd916cb
+
+	measure 'Median Monthly Income' = MEDIAN(Fact_Employees[Monthly_Income])
+		formatString: $#,0.00;($#,0.00);$#,0.00
+		lineageTag: e1bb256d-50ed-4299-bbc7-6211d84964c8
+
+	measure 'Average Company Tenure (Years)' = AVERAGE(Fact_Employees[Years_at_Company])
+		formatString: 0.0
+		lineageTag: ca841f87-9fe7-485d-9a37-8831ad60e320
+
+	measure 'Average Years in Current Role' = AVERAGE(Fact_Employees[Years_in_Current_Role])
+		formatString: 0.0
+		lineageTag: 4563426d-8cfb-43c6-a25d-0e9c05584535
+
+	measure 'Average Years Since Last Promotion' = AVERAGE(Fact_Employees[Years_Since_Last_Promotion])
+		formatString: 0.0
+		lineageTag: a9631367-0bcf-491e-a7bd-136ccd0d3935
+
+	measure 'Average Absenteeism Days' = AVERAGE(Fact_Employees[Absenteeism])
+		formatString: 0.0
+		lineageTag: 2fb21a7d-c184-4642-8ad6-7d38234f6392
+
+	measure 'Average Job Satisfaction' = AVERAGE(Fact_Employees[Job_Satisfaction])
+		formatString: 0.00
+		lineageTag: d1d5bf1f-e81a-4289-aa18-67b461931972
+
+	measure 'Average Work Life Balance' = AVERAGE(Fact_Employees[Work_Life_Balance])
+		formatString: 0.00
+		lineageTag: 8f9d5ca2-6341-4e2d-9b1c-584c3b3b5736
+
+	measure 'Average Work Environment Satisfaction' = AVERAGE(Fact_Employees[Work_Environment_Satisfaction])
+		formatString: 0.00
+		lineageTag: dd3de88d-e265-4fb8-be28-0b64c5748077
+
+	measure 'Low Satisfaction Headcount' = CALCULATE(COUNTROWS(Fact_Employees), Fact_Employees[Job_Satisfaction] <= 2)
+		formatString: #,0
+		lineageTag: 7e6a506e-7989-4ff3-ada4-71db7ca20eb7
+
+	measure 'Overtime Attrition Rate %' = CALCULATE([Attrition Rate %], Fact_Employees[Overtime] = "Yes")
+		formatString: 0.00%
+		lineageTag: a35e48e8-e88f-42ba-8931-e48747f49812
+
+	measure 'Non-Overtime Attrition Rate %' = CALCULATE([Attrition Rate %], Fact_Employees[Overtime] = "No")
+		formatString: 0.00%
+		lineageTag: 4d6b0068-b0aa-4c51-a81a-76a76669c304
+
+	measure 'High Performer Flight Risk Count' = CALCULATE(COUNTROWS(Fact_Employees), Fact_Employees[Performance_Rating] >= 4, Fact_Employees[Job_Satisfaction] <= 2, Fact_Employees[Attrition] = "No")
+		formatString: #,0
+		lineageTag: 166801e9-cd3d-49a5-991f-fa4e97222842
+
+	measure 'Department Attrition Rank' = IF(HASONEVALUE(Fact_Employees[Department]), RANKX(ALL(Fact_Employees[Department]), [Attrition Rate %], , DESC, Dense), BLANK())
+		formatString: #,0
+		lineageTag: 4bb6e00e-5912-4260-86d4-fc8fc4f18424
+
+	measure 'Attrition Status Color Hex' = VAR Rate = [Attrition Rate %] RETURN SWITCH(TRUE(), Rate <= 0.12, "#2ECC71", Rate <= 0.18, "#F1C40F", "#E74C3C")
+		lineageTag: 125961bf-f263-43e1-b30d-5bfc0a0a00a9
+
+	column RowKey
+		dataType: int64
+		isHidden
+		lineageTag: 11dee5f2-0aba-4cbc-b43e-3b43d709c408
+		sourceColumn: RowKey
+
+	partition _HR_Measures-Partition = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WMlSKjQUA", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [RowKey = _t]),
+				    ChangeTypes = Table.TransformColumnTypes(Source,{{"RowKey", Int64.Type}})
+				in
+				    ChangeTypes
+

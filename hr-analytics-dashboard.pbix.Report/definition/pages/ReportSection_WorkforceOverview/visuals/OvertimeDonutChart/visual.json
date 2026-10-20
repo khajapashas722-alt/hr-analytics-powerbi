@@ -1,0 +1,75 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "OvertimeDonutChart",
+  "position": {
+    "x": 20,
+    "y": 468,
+    "z": 12000,
+    "height": 236,
+    "width": 420
+  },
+  "visual": {
+    "visualType": "pieChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Employees"
+                    }
+                  },
+                  "Property": "Overtime"
+                }
+              },
+              "queryRef": "Fact_Employees.Overtime",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_HR_Measures"
+                    }
+                  },
+                  "Property": "Departed Employees"
+                }
+              },
+              "queryRef": "_HR_Measures.Departed Employees"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "legend": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "position": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Right'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

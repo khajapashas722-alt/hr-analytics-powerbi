@@ -1,0 +1,191 @@
+table Fact_Employees
+	lineageTag: 4b57374f-9c42-4463-8cd8-8d4be6a36d25
+
+	column Employee_ID
+		dataType: int64
+		isKey
+		lineageTag: 2d48e499-7202-49de-a99d-027e892283f9
+		sourceColumn: Employee_ID
+
+	column Age
+		dataType: int64
+		lineageTag: 64538328-cee0-44b8-8262-196967a3d8b4
+		sourceColumn: Age
+
+	column Gender
+		dataType: string
+		lineageTag: c50475e4-1903-47fd-8f8f-7f99800c3daf
+		sourceColumn: Gender
+
+	column Marital_Status
+		dataType: string
+		lineageTag: 5989ecab-5c5e-44bc-8e0e-4fdd1de12741
+		sourceColumn: Marital_Status
+
+	column Department
+		dataType: string
+		lineageTag: e1b2d9e4-c1d5-4d74-815b-fe1d9b899786
+		sourceColumn: Department
+
+	column Job_Role
+		dataType: string
+		lineageTag: 335257ee-dcff-4d90-ae71-cac4049237da
+		sourceColumn: Job_Role
+
+	column Job_Level
+		dataType: int64
+		lineageTag: 04625cc2-fc36-4c4f-8374-a178f9536137
+		sourceColumn: Job_Level
+
+	column Monthly_Income
+		dataType: double
+		formatString: $#,0.00;($#,0.00);$#,0.00
+		lineageTag: f4c72555-aaa8-40f6-b5af-f35de7326ed4
+		sourceColumn: Monthly_Income
+
+	column Hourly_Rate
+		dataType: double
+		formatString: $#,0.00;($#,0.00);$#,0.00
+		lineageTag: c313ec2c-e828-4dc1-b8e6-4c027100b61a
+		sourceColumn: Hourly_Rate
+
+	column Years_at_Company
+		dataType: int64
+		lineageTag: 1c30422f-c401-45ef-81ca-2c317a683ad2
+		sourceColumn: Years_at_Company
+
+	column Years_in_Current_Role
+		dataType: int64
+		lineageTag: 62076c5e-2d8c-4a4e-a548-ae6824f84118
+		sourceColumn: Years_in_Current_Role
+
+	column Years_Since_Last_Promotion
+		dataType: int64
+		lineageTag: aca82fd9-a628-45ea-af5e-22c4d1a428d2
+		sourceColumn: Years_Since_Last_Promotion
+
+	column Work_Life_Balance
+		dataType: int64
+		lineageTag: b2e3407c-44bf-4a2e-97d3-65983ede3563
+		sourceColumn: Work_Life_Balance
+
+	column Job_Satisfaction
+		dataType: int64
+		lineageTag: ac1a9c29-bcca-40a8-886c-07ef63c30b5e
+		sourceColumn: Job_Satisfaction
+
+	column Performance_Rating
+		dataType: int64
+		lineageTag: 40378fe6-fada-4cef-a84b-f495d1686f8b
+		sourceColumn: Performance_Rating
+
+	column Training_Hours_Last_Year
+		dataType: int64
+		lineageTag: 1a84666b-4036-4131-bb7d-3365dead29f1
+		sourceColumn: Training_Hours_Last_Year
+
+	column Overtime
+		dataType: string
+		lineageTag: d108672c-49df-4557-9b6b-787b456158e4
+		sourceColumn: Overtime
+
+	column Project_Count
+		dataType: int64
+		lineageTag: 5508369e-5681-44c6-a59c-11f0ed2238e9
+		sourceColumn: Project_Count
+
+	column Average_Hours_Worked_Per_Week
+		dataType: double
+		lineageTag: d3e3f446-873e-44f4-956e-facb03ccbdc8
+		sourceColumn: Average_Hours_Worked_Per_Week
+
+	column Absenteeism
+		dataType: int64
+		lineageTag: bc79380e-808e-4cf1-b1ff-5e76cbfabbeb
+		sourceColumn: Absenteeism
+
+	column Work_Environment_Satisfaction
+		dataType: int64
+		lineageTag: b82ed071-c5b3-4ecc-97e8-c8c1aea75c4c
+		sourceColumn: Work_Environment_Satisfaction
+
+	column Relationship_with_Manager
+		dataType: int64
+		lineageTag: bef71a6d-cca3-4d92-9d96-04231f1bc3d4
+		sourceColumn: Relationship_with_Manager
+
+	column Job_Involvement
+		dataType: int64
+		lineageTag: 88c69296-7f36-4c5b-a623-0c94f8cb9f9f
+		sourceColumn: Job_Involvement
+
+	column Distance_From_Home
+		dataType: int64
+		lineageTag: f75a88fe-63e3-4f0e-9a95-b8217f9908cc
+		sourceColumn: Distance_From_Home
+
+	column Number_of_Companies_Worked
+		dataType: int64
+		lineageTag: fdbef40b-9545-4b1a-8037-6f9aafa9e180
+		sourceColumn: Number_of_Companies_Worked
+
+	column Attrition
+		dataType: string
+		lineageTag: 885fdefe-1c01-47f7-810a-dfeb104b4107
+		sourceColumn: Attrition
+
+	column 'Age Group'
+		dataType: string
+		lineageTag: 043c8b36-325b-41ae-8242-633aed9c0ba0
+		sourceColumn: Age Group
+
+	column 'Tenure Cohort'
+		dataType: string
+		lineageTag: da8a6132-f929-4d1d-8826-8dac58634899
+		sourceColumn: Tenure Cohort
+
+	column Department_Role_Key
+		dataType: string
+		lineageTag: 573d0a74-a07a-4473-a5d8-5f9905d8e6ba
+		sourceColumn: Department_Role_Key
+
+	partition Fact_Employees-Partition = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:/Users/shakj/Documents/data-analytics-portfolio/power-bi/hr-analytics-powerbi/data/employee_attrition_dataset.csv"), [Delimiter=",", Columns=26, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    PromoteHeaders = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    ChangeTypes = Table.TransformColumnTypes(PromoteHeaders, {
+				        {"Employee_ID", Int64.Type},
+				        {"Age", Int64.Type},
+				        {"Gender", type text},
+				        {"Marital_Status", type text},
+				        {"Department", type text},
+				        {"Job_Role", type text},
+				        {"Job_Level", Int64.Type},
+				        {"Monthly_Income", type number},
+				        {"Hourly_Rate", type number},
+				        {"Years_at_Company", Int64.Type},
+				        {"Years_in_Current_Role", Int64.Type},
+				        {"Years_Since_Last_Promotion", Int64.Type},
+				        {"Work_Life_Balance", Int64.Type},
+				        {"Job_Satisfaction", Int64.Type},
+				        {"Performance_Rating", Int64.Type},
+				        {"Training_Hours_Last_Year", Int64.Type},
+				        {"Overtime", type text},
+				        {"Project_Count", Int64.Type},
+				        {"Average_Hours_Worked_Per_Week", type number},
+				        {"Absenteeism", Int64.Type},
+				        {"Work_Environment_Satisfaction", Int64.Type},
+				        {"Relationship_with_Manager", Int64.Type},
+				        {"Job_Involvement", Int64.Type},
+				        {"Distance_From_Home", Int64.Type},
+				        {"Number_of_Companies_Worked", Int64.Type},
+				        {"Attrition", type text}
+				    }),
+				    AddAgeGroup = Table.AddColumn(ChangeTypes, "Age Group", each if [Age] < 30 then "Under 30" else if [Age] <= 39 then "30 - 39" else if [Age] <= 49 then "40 - 49" else "50+", type text),
+				    AddTenureCohort = Table.AddColumn(AddAgeGroup, "Tenure Cohort", each if [Years_at_Company] < 2 then "0 - 1 Years" else if [Years_at_Company] <= 5 then "2 - 5 Years" else if [Years_at_Company] <= 10 then "6 - 10 Years" else "10+ Years", type text),
+				    AddDeptRoleKey = Table.AddColumn(AddTenureCohort, "Department_Role_Key", each [Department] & "-" & [Job_Role], type text)
+				in
+				    AddDeptRoleKey
+

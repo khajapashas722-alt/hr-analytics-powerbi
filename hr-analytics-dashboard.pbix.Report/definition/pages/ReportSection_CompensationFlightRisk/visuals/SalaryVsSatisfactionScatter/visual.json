@@ -1,0 +1,116 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "SalaryVsSatisfactionScatter",
+  "position": {
+    "x": 780,
+    "y": 162,
+    "z": 6000,
+    "height": 265,
+    "width": 480
+  },
+  "visual": {
+    "visualType": "scatterChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Fact_Employees"
+                    }
+                  },
+                  "Property": "Job_Role"
+                }
+              },
+              "queryRef": "Fact_Employees.Job_Role",
+              "active": true
+            }
+          ]
+        },
+        "Size": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_HR_Measures"
+                    }
+                  },
+                  "Property": "Total Headcount"
+                }
+              },
+              "queryRef": "_HR_Measures.Total Headcount"
+            }
+          ]
+        },
+        "X": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_HR_Measures"
+                    }
+                  },
+                  "Property": "Average Monthly Income"
+                }
+              },
+              "queryRef": "_HR_Measures.Average Monthly Income",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_HR_Measures"
+                    }
+                  },
+                  "Property": "Average Job Satisfaction"
+                }
+              },
+              "queryRef": "_HR_Measures.Average Job Satisfaction"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "categoryAxis": [
+        {
+          "properties": {
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
